@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     static List<String[]> calender = new ArrayList<>();
-    static String[] dates = new String[17];
+    static String[] dates = new String[365];
 
 
     static Scanner input = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i=0; i<17; i++){
+        for (int i=0; i<365; i++){
             dates[i]=(calender.get(i)[0]);
         }
 
