@@ -49,6 +49,25 @@ public class Main {
                     date=input.next();
 
                     Available.available(date);
+                    System.out.println("Vil du book tid?");
+                    Menu.menu(new String[]{"Ja","Nej"});
+                    if (Menu.op==1){
+                        System.out.println("Indtast dag (dd):");
+                        String dayStr=input.next();
+
+                        System.out.println("Indtast tidspunkt (tt:mm):");
+                        String timeStr=input.next();
+
+                        System.out.println("Telefon nr:");
+                        int teleNr=input.nextInt();
+
+                        if (teleNr>9999999 && teleNr<100000000){
+                            String teleStr=Integer.toString(teleNr);
+                            Book.book(dayStr, timeStr, teleStr);
+                        }
+                        else System.out.println();
+
+                    }
 
                 }
             }
