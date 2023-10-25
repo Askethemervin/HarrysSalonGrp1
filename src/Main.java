@@ -34,49 +34,48 @@ public class Main {
             String line;
             while ((line = cr.readLine()) != null) {
                 String[] data = line.split(",");
-
                 String[] bookingsStr = data[2].split(";");
                 ArrayList<String[]> bookingsList = new ArrayList<>();
-                for (String s: bookingsStr){
+                for (String s : bookingsStr) {
                     bookingsList.add(s.split("\\."));
 
                 }
 
-                customers.add(new Customer(data[0],data[1],bookingsList));
+                customers.add(new Customer(data[0], data[1], bookingsList));
 
             }
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println(customers);
+
 
 
             while (true) {
-                String[] items = new String[]{"Se ledige tider", "Se/Ændre tid", "Slet tid", "Salg"};
+                String[] items = new String[]{"Se ledige tider", "Se/Ændre tid", "Slet tid","Opret kunde", "Salg"};
                 Menu.menu(items);
 
                 switch (Menu.op) {
                     case 1 -> {
                         System.out.println("Indtast dato (yyyy/MM/dd):");
-                        date = input.next();
+                        date = input.nextLine();
 
                         Available.available(date);
                         System.out.println("Vil du book tid?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
                             System.out.println("Indtast dag (dd):");
-                            String dayStr = input.next();
+                            String dayStr = input.nextLine();
                             String[] dateArr = date.split("/");
                             dateArr[2] = dayStr;
                             date = String.join("/", dateArr);
 
                             System.out.println("Indtast tidspunkt (tt:mm):");
-                            String timeStr = input.next();
+                            String timeStr = input.nextLine();
 
                             System.out.println("Telefon nr:");
                             int teleNr = input.nextInt();
-
+                            input.nextLine();
                             if (teleNr > 9999999 && teleNr < 100000000) {
                                 String teleStr = Integer.toString(teleNr);
                                 Book.book(date, timeStr, teleStr);
@@ -87,7 +86,7 @@ public class Main {
                     }
                     case 2 -> {
                         System.out.println("Indtast telefon nr.;");
-                        String tlfnr=input.next();
+                        String tlfnr=input.nextLine();
 
                         System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
                         for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
@@ -97,14 +96,14 @@ public class Main {
                     case 3 -> {
 
                         System.out.println("Indtast dato (yyyy/MM/dd):");
-                        date = input.next();
+                        date = input.nextLine();
                         Available.reserved(date);
                         System.out.println("Vil du slette en tid?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
 
                             System.out.println("Indtast tidspunkt (tt:mm):");
-                            String timeStr = input.next();
+                            String timeStr = input.nextLine();
 
                             System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
                             Menu.menu(new String[]{"Ja", "Nej"});
@@ -112,6 +111,18 @@ public class Main {
                                 Book.book(date, timeStr, "0");
                             }
                         }
+                    }
+                    case 4 -> {
+                        System.out.println("Indtast telefon nr.:");
+                        String nr = input.nextLine();
+                        System.out.println("Indtast navn:");
+                        String name = input.nextLine();
+
+                        customers.add(new Customer(nr,name,new ArrayList<>()));
+
+                        ToFile.saveCustomer(customers);
+
+
                     }
                 }
             }

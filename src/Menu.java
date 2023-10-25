@@ -7,20 +7,7 @@ public class Menu {
     static String date;
 
     public static void main(String[] args) {
-        while (true) {
-            String[] items = new String[]{"Se ledige tider", "Book tid", "Slet tid", "Salg"};
-            menu(items);
 
-            switch (op){
-                case 1 ->{
-                    System.out.println("Indtast dato (yyyy/MM/dd):");
-                    date=input.next();
-                    System.out.println(date);
-                    Available.available("2023/10/25");
-
-                }
-            }
-        }
     }
     static void menu(String[] list){
         for(int i=0; i<list.length; i++){
@@ -39,6 +26,7 @@ public class Menu {
         do {
             try {
                 num= input.nextInt();
+                input.nextLine();
                 if (num<=size) {
                     OK = true;
                 }
