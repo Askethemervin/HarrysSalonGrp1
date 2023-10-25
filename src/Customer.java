@@ -5,7 +5,10 @@ public class Customer {
     String name;
     ArrayList<int[]> bookings;
 
-    public Customer() {
+    public Customer(int a, String b) {
         bookings = new ArrayList<>();
+        name=b;
+        tlfnr=a;
+
     }
 }
