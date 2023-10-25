@@ -29,7 +29,7 @@ public class Main {
         }
         try(BufferedReader cr = new BufferedReader(new FileReader("customers.txt"))){
             String line;
-            //while ((line= cr.readline()) != null) {
+            while ((line= cr.readline()) != null) {
 
         }
 
