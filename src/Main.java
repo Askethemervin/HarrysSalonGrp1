@@ -27,6 +27,11 @@ public class Main {
         for (int i=0; i<365; i++){
             dates[i]=(calender.get(i)[0]);
         }
+        try(BufferedReader cr = new BufferedReader(new FileReader("customers.txt"))){
+            String line;
+            //while ((line= cr.readline()) != null) {
+
+        }
 
 
 
@@ -75,7 +80,7 @@ public class Main {
                 }
                 case 2 -> {
                     System.out.println("Hvad er dit telefonnr?");
-                    tlfnr=input.next();
+                    //tlfnr=input.next();
                     Available.reserved(date);
 
                 }

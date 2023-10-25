@@ -14,4 +14,12 @@ public class ToFile {
         }
         fil.close();
     }
+    public static void saveCustomer(List<Customer> dataLines) throws IOException {
+        FileWriter fil = new FileWriter("customers.txt");
+        PrintWriter ud = new PrintWriter(fil);
+        for (Customer k: dataLines) {
+            ud.println(k.tlfnr +","+ k.name +","+ k.bookings);
+        }
+        fil.close();
+    }
 }
