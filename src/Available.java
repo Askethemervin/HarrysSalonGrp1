@@ -55,6 +55,9 @@ public class Available {
             }
             System.out.println("\n");
             daynr++;
+            String[] values = date.split("/");
+            values[2]=Integer.toString(Integer.parseInt(values[2])+1);
+            date=String.join("/",values);
         }
         System.out.println("\n");
     }
