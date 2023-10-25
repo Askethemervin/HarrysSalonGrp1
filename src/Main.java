@@ -73,6 +73,31 @@ public class Main {
                     }
 
                 }
+                case 2 -> {
+                    System.out.println("Hvad er dit telefonnr?");
+                    tlfnr=input.next();
+                    Available.reserved(date);
+
+                }
+                case 3 -> {
+
+                    System.out.println("Indtast dato (yyyy/MM/dd):");
+                    date=input.next();
+                    Available.reserved(date);
+                    System.out.println("Vil du slette en tid?");
+                    Menu.menu(new String[]{"Ja","Nej"});
+                    if(Menu.op==1) {
+
+                        System.out.println("Indtast tidspunkt (tt:mm):");
+                        String timeStr=input.next();
+
+                        System.out.println("Er du sikker på at du vil slette denne tid "+timeStr+"?");
+                        Menu.menu(new String[]{"Ja", "Nej"});
+                        if(Menu.op==1) {
+                            Book.book(date, timeStr, "0");
+                        }
+                    }
+                }
             }
         }
     }
