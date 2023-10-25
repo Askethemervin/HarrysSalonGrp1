@@ -54,6 +54,9 @@ public class Main {
                     if (Menu.op==1){
                         System.out.println("Indtast dag (dd):");
                         String dayStr=input.next();
+                        String[] dateArr=date.split("/");
+                        dateArr[2]=dayStr;
+                        date=String.join("/",dateArr);
 
                         System.out.println("Indtast tidspunkt (tt:mm):");
                         String timeStr=input.next();
@@ -63,9 +66,9 @@ public class Main {
 
                         if (teleNr>9999999 && teleNr<100000000){
                             String teleStr=Integer.toString(teleNr);
-                            Book.book(dayStr, timeStr, teleStr);
+                            Book.book(date, timeStr, teleStr);
                         }
-                        else System.out.println();
+                        else System.out.println("Ugyldigt telefon nr.");
 
                     }
 
