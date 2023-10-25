@@ -1,14 +1,21 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer {
-    int tlfnr;
+    String tlfnr;
     String name;
-    ArrayList<int[]> bookings;
+    ArrayList<String[]> bookings;
 
-    public Customer(int a, String b) {
-        bookings = new ArrayList<>();
+    public Customer(String a, String b, ArrayList<String[]> c) {
+        bookings = c;
         name=b;
         tlfnr=a;
+        Main.phoneNumbers.add(a);
 
+    }
+
+    @Override
+    public String toString() {
+        return tlfnr+","+name+","+bookings;
     }
 }

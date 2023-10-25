@@ -2,13 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static List<String[]> calender = new ArrayList<>();
     static List<Customer> customers = new ArrayList<>();
-    static List<Integer> phoneNumbers = new ArrayList<>();
+    static List<String> phoneNumbers = new ArrayList<>();
     static String[] dates = new String[365];
 
 
@@ -33,28 +34,26 @@ public class Main {
             String line;
             while ((line = cr.readLine()) != null) {
                 String[] data = line.split(",");
-                customers.add(new Customer(Integer.parseInt(data[0]),data[1]));
+
+                String[] bookingsStr = data[2].split(";");
+                ArrayList<String[]> bookingsList = new ArrayList<>();
+                for (String s: bookingsStr){
+                    bookingsList.add(s.split("\\."));
+
+                }
+
+                customers.add(new Customer(data[0],data[1],bookingsList));
 
             }
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (Customer d: customers){
-            phoneNumbers.add(d.tlfnr);
-        }
 
-
-            Book.book("2023/10/25", "10:00", "20632954");
-            Book.book("2023/10/25", "10:30", "20632954");
-            Book.book("2023/10/25", "11:00", "20632954");
-            Book.book("2023/10/25", "11:30", "20632954");
-            Book.book("2023/10/25", "13:00", "20632954");
-            Book.book("2023/10/25", "14:30", "20632954");
-            Book.book("2023/10/26", "10:00", "20632954");
+        System.out.println(customers);
 
 
             while (true) {
-                String[] items = new String[]{"Se ledige tider", "Ændre tid", "Slet tid", "Salg"};
+                String[] items = new String[]{"Se ledige tider", "Se/Ændre tid", "Slet tid", "Salg"};
                 Menu.menu(items);
 
                 switch (Menu.op) {
@@ -87,10 +86,13 @@ public class Main {
 
                     }
                     case 2 -> {
-                        System.out.println("Hvad er dit telefonnr?");
-                        //tlfnr=input.next();
-                        Available.reserved(date);
+                        System.out.println("Indtast telefon nr.;");
+                        String tlfnr=input.next();
 
+                        System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
+                        for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
+                            System.out.println(Arrays.toString(s));
+                        }
                     }
                     case 3 -> {
 

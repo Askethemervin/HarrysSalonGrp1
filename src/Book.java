@@ -66,6 +66,10 @@ public class Book {
         ToFile.saveList(Main.calender);
 
 
+        Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date,time});
+
+        ToFile.saveCustomer(Main.customers);
+
 
 
     }
