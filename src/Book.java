@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Book {
@@ -65,9 +66,17 @@ public class Book {
 
         ToFile.saveList(Main.calender);
 
-
-        Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date,time});
-
+        if (Main.phoneNumbers.indexOf(telnr)!=-1) {
+            Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date, time});
+        }
+        else {
+            System.out.println("Kunde skal oprettes, angiv navn: ");
+            String name = Main.input.nextLine();
+            String[] datetime = new String[]{date,time};
+            ArrayList<String[]> datetimeAL = new ArrayList<>();
+            datetimeAL.add(datetime);
+            Main.customers.add(new Customer(telnr, name, datetimeAL));
+        }
         ToFile.saveCustomer(Main.customers);
 
 

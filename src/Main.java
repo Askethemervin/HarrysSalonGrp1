@@ -34,14 +34,16 @@ public class Main {
             String line;
             while ((line = cr.readLine()) != null) {
                 String[] data = line.split(",");
-                String[] bookingsStr = data[2].split(";");
                 ArrayList<String[]> bookingsList = new ArrayList<>();
-                for (String s : bookingsStr) {
-                    bookingsList.add(s.split("\\."));
+                if (data.length==3) {
+                    String[] bookingsStr = data[2].split(";");
 
+                    for (String s : bookingsStr) {
+                        bookingsList.add(s.split("\\."));
+
+                    }
                 }
-
-                customers.add(new Customer(data[0], data[1], bookingsList));
+                    customers.add(new Customer(data[0], data[1], bookingsList));
 
             }
         }catch (IOException e) {
@@ -52,7 +54,7 @@ public class Main {
 
 
             while (true) {
-                String[] items = new String[]{"Se ledige tider", "Se/Ændre tid", "Slet tid","Opret kunde", "Salg"};
+                String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Slet tid","Opret kunde", "Salg"};
                 Menu.menu(items);
 
                 switch (Menu.op) {
@@ -61,7 +63,7 @@ public class Main {
                         date = input.nextLine();
 
                         Available.available(date);
-                        System.out.println("Vil du book tid?");
+                        System.out.println("Vil du booke tid?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
                             System.out.println("Indtast dag (dd):");
