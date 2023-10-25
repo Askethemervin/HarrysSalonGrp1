@@ -30,17 +30,17 @@ public class Main {
 
 
 
-        Book.book("2023/10/25", 1, "20632954");
-        Book.book("2023/10/25", 2, "20632954");
-        Book.book("2023/10/25", 3, "20632954");
-        Book.book("2023/10/25", 6, "20632954");
-        Book.book("2023/10/25", 9, "20632954");
-        Book.book("2023/10/25", 10, "20632954");
-        Book.book("2023/10/26", 10, "20632954");
+        Book.book("2023/10/25", "10:00", "20632954");
+        Book.book("2023/10/25", "10:30", "20632954");
+        Book.book("2023/10/25", "11:00", "20632954");
+        Book.book("2023/10/25", "11:30", "20632954");
+        Book.book("2023/10/25", "13:00", "20632954");
+        Book.book("2023/10/25", "14:30", "20632954");
+        Book.book("2023/10/26", "10:00", "20632954");
         Available.available("2023/10/25");
 
         while (true) {
-            String[] items = new String[]{"Se ledige tider", "Book tid", "Slet tid", "Salg"};
+            String[] items = new String[]{"Se ledige tider", "Ændre tid", "Slet tid", "Salg"};
             Menu.menu(items);
 
             switch (Menu.op){
