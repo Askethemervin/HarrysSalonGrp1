@@ -111,15 +111,9 @@ public class Main {
                         System.out.println("Er du sikker på at du vil ændre tiden "+Arrays.toString(cbookings.get(choice-1))+"?");
                         Menu.menu(new String[] {"Ja","Nej"});
                         if (Menu.op==1) {
-                            Book.book(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1], "0");
-                            System.out.println("Din tid er nu fjernet, du skal nu tilføje en ny.");
-                            Available.available(cbookings.get(choice - 1)[0]);
-                            System.out.println("Hvilken tid vil du ændre til?");
-                            System.out.println("Indtast dato (yyyy/MM/dd):");
-                            date = input.nextLine();
+                            Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
+                            System.out.println("Tiden "+cbookings.get(choice - 1)[0]+" kl. "+cbookings.get(choice - 1)[1]+" er slettet. Vil du booke en ny?");
 
-                            Available.available(date);
-                            System.out.println("Vil du booke en ny tid?");
                             Menu.menu(new String[]{"Ja", "Nej"});
                             if (Menu.op == 1) {
                                 System.out.println("Indtast dag (dd):");
@@ -159,7 +153,7 @@ public class Main {
                         System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
-                            Book.book(date, timeStr, "0");
+                            Book.delete(date, timeStr);
                         }
                     }
                 }
