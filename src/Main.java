@@ -91,9 +91,58 @@ public class Main {
                         String tlfnr=input.nextLine();
 
                         System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
+                        int j=1;
                         for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
-                            System.out.println(Arrays.toString(s));
+                            System.out.println(j+": "+Arrays.toString(s));
+                            j++;
+
                         }
+                        System.out.println("Kunne du tænke dig at ændre en tid?");
+                        Menu.menu(new String[] {"Ja", "Nej"});
+                        if(Menu.op == 1) {
+
+                            System.out.println("Indtast nummeret for tiden");
+
+                            ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings ;
+
+                            int choice = Menu.inInt(cbookings.size());
+
+
+                            System.out.println("Er du sikker på at du vil ændre tiden "+Arrays.toString(cbookings.get(choice-1))+"?");
+                            Menu.menu(new String[] {"Ja","Nej"});
+                            if (Menu.op==1) {
+                                Book.book(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1], "0");
+                                System.out.println("Din tid er nu fjernet, du skal nu tilføje en ny.");
+                                Available.available(cbookings.get(choice - 1)[0]);
+                                System.out.println("Hvilken tid vil du ændre til?");
+                                System.out.println("Indtast dato (yyyy/MM/dd):");
+                                date = input.nextLine();
+
+                                Available.available(date);
+                                System.out.println("Vil du booke en ny tid?");
+                                Menu.menu(new String[]{"Ja", "Nej"});
+                                if (Menu.op == 1) {
+                                    System.out.println("Indtast dag (dd):");
+                                    String dayStr = input.nextLine();
+                                    String[] dateArr = date.split("/");
+                                    dateArr[2] = dayStr;
+                                    date = String.join("/", dateArr);
+
+                                    System.out.println("Indtast tidspunkt (tt:mm):");
+                                    String timeStr = input.nextLine();
+
+                                    Book.book(date, timeStr, tlfnr);
+                                    System.out.println("Din tid er nu ændret til "+date+" klokken " +timeStr);
+                                }
+
+
+                            }
+
+
+                        }
+
+
+
                     }
                     case 3 -> {
 

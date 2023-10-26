@@ -66,7 +66,10 @@ public class Book {
 
         ToFile.saveList(Main.calender);
 
-        if (Main.phoneNumbers.indexOf(telnr)!=-1) {
+        if (telnr.equals("0")) {
+
+        }
+        else if (Main.phoneNumbers.indexOf(telnr)!=-1) {
             Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date, time});
         }
         else {
