@@ -54,7 +54,8 @@ public class Main {
 
 
         while (true) {
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Slet tid","Opret kunde", "Salg"};
+            System.out.println();
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Salg"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -62,31 +63,44 @@ public class Main {
                     System.out.println("Indtast dato (yyyy/MM/dd):");
                     date = input.nextLine();
 
+                    if (dates.contains(date)){
+
                     Available.available(date);
                     System.out.println("Vil du booke tid?");
                     Menu.menu(new String[]{"Ja", "Nej"});
                     if (Menu.op == 1) {
                         System.out.println("Indtast dag (dd):");
                         String dayStr = input.nextLine();
-                        String[] dateArr = date.split("/");
-                        if (Integer.parseInt(dayStr)<Integer.parseInt(dateArr[2])){
-                            dateArr[1]=Integer.toString(Integer.parseInt(dateArr[1])+1);
+                        if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
+                            String[] dateArr = date.split("/");
+                            if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
+                                dateArr[1] = Integer.toString(Integer.parseInt(dateArr[1]) + 1);
+                            }
+                            dateArr[2] = dayStr;
+
+                            date = String.join("/", dateArr);
+                            Available.timeCheck(date);
+                            System.out.println("Indtast tidspunkt (tt:mm):");
+                            String timeStr = input.nextLine();
+
+                            if (Available.timeOptions.contains(timeStr)) {
+
+                                System.out.println("Telefon nr:");
+                                int teleNr = input.nextInt();
+                                input.nextLine();
+                                if (teleNr > 9999999 && teleNr < 100000000) {
+                                    String teleStr = Integer.toString(teleNr);
+                                    Book.book(date, timeStr, teleStr);
+                                } else System.out.println("Ugyldigt telefon nr.");
+                            } else {
+                                System.out.println("Ugyldigt tidspunkt valgt");
+                            }
+                        } else {
+                            System.out.println("Ugyldig dag valgt");
                         }
-                        dateArr[2] = dayStr;
 
-                        date = String.join("/", dateArr);
-
-                        System.out.println("Indtast tidspunkt (tt:mm):");
-                        String timeStr = input.nextLine();
-
-                        System.out.println("Telefon nr:");
-                        int teleNr = input.nextInt();
-                        input.nextLine();
-                        if (teleNr > 9999999 && teleNr < 100000000) {
-                            String teleStr = Integer.toString(teleNr);
-                            Book.book(date, timeStr, teleStr);
-                        } else System.out.println("Ugyldigt telefon nr.");
-
+                        }
+                    else System.out.println("Ugyldig dato valgt");
                     }
 
                 }
