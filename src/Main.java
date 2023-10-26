@@ -93,7 +93,30 @@ public class Main {
                         System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
                         for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
                             System.out.println(Arrays.toString(s));
+
+                            System.out.println("Kunne du tænke dig at ændre en tid?");
+                            Menu.menu(new String[] {"Ja", "Nej"});
+                            if(Menu.op == 1) {
+
+                                System.out.println("Indtast dato (yyyy/MM/dd):");
+
+                                date = input.nextLine();
+
+                                System.out.println("Indtast tidspunktet (tt:mm):");
+
+                                String timeStr = input.nextLine();
+                                System.out.println("Er du sikker på at du vil ændre tiden "+timeStr+"?");
+                                Menu.menu(new String[] {"Ja","Nej"});
+                                if (Menu.op==1) {
+                                    Book.book(date, timeStr, "0");
+                                    
+                                }
+                            }
+
                         }
+
+
+
                     }
                     case 3 -> {
 
