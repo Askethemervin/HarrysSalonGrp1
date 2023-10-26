@@ -3,16 +3,18 @@ import java.util.Arrays;
 public class Available {
     static int daynr;
     static String[] day = new String[17];
-
+    static String dayName;
 
     static void available(String date){
 
         daynr=Main.dates.indexOf(date);
 
+
         for (int j=0; j<5; j++) {
             day =Main.calender.get(daynr);
+            dayName=day[17];
 
-            System.out.println(date + " er følgende tider ledige: ");
+            System.out.println(dayName+", "+date + " er følgende tider ledige: ");
             for (int i = 1; i < 17; i++) {
                 if (day[i].equals("0")) {
                     switch (i) {
@@ -55,9 +57,8 @@ public class Available {
             }
             System.out.println("\n");
             daynr++;
-            String[] values = date.split("/");
-            values[2]=Integer.toString(Integer.parseInt(values[2])+1);
-            date=String.join("/",values);
+            date=Main.dates.get(daynr);
+
         }
         System.out.println("\n");
     }
@@ -67,8 +68,9 @@ public class Available {
 
 
             day =Main.calender.get(daynr);
+            dayName=day[17];
 
-            System.out.println(date + " er følgende tider reserverede: ");
+            System.out.println(dayName+", "+date + " er følgende tider reserverede: ");
             for (int i = 1; i < 17; i++) {
                 if (!day[i].equals("0")) {
                     switch (i) {

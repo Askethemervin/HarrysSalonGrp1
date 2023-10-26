@@ -69,7 +69,11 @@ public class Main {
                         System.out.println("Indtast dag (dd):");
                         String dayStr = input.nextLine();
                         String[] dateArr = date.split("/");
+                        if (Integer.parseInt(dayStr)<Integer.parseInt(dateArr[2])){
+                            dateArr[1]=Integer.toString(Integer.parseInt(dateArr[1])+1);
+                        }
                         dateArr[2] = dayStr;
+
                         date = String.join("/", dateArr);
 
                         System.out.println("Indtast tidspunkt (tt:mm):");
