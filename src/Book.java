@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Book {
 
     static int y;
-//    static List<String[]> records = new ArrayList<>();
+    //    static List<String[]> records = new ArrayList<>();
 //    static String[] dage = new String[17];
 //
     public static void main(String[] args) throws IOException {
@@ -66,7 +66,10 @@ public class Book {
 
         ToFile.saveList(Main.calender);
 
-        if (Main.phoneNumbers.indexOf(telnr)!=-1) {
+        if (telnr.equals("0")) {
+
+        }
+        else if (Main.phoneNumbers.contains(telnr)){
             Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date, time});
         }
         else {
@@ -77,6 +80,7 @@ public class Book {
             datetimeAL.add(datetime);
             Main.customers.add(new Customer(telnr, name, datetimeAL));
         }
+
         ToFile.saveCustomer(Main.customers);
 
 
