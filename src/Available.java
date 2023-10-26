@@ -7,7 +7,7 @@ public class Available {
 
     static void available(String date){
 
-        daynr=Arrays.asList(Main.dates).indexOf(date);
+        daynr=Main.dates.indexOf(date);
 
         for (int j=0; j<5; j++) {
             day =Main.calender.get(daynr);
@@ -63,7 +63,7 @@ public class Available {
     }
     static void reserved(String date){
 
-        daynr=Arrays.asList(Main.dates).indexOf(date);
+        daynr=Main.dates.indexOf(date);
 
 
             day =Main.calender.get(daynr);

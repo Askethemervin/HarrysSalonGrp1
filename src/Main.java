@@ -10,7 +10,7 @@ public class Main {
     static List<String[]> calender = new ArrayList<>();
     static List<Customer> customers = new ArrayList<>();
     static List<String> phoneNumbers = new ArrayList<>();
-    static String[] dates = new String[365];
+    static List<String> dates = new ArrayList<>();
 
 
     static Scanner input = new Scanner(System.in);
@@ -27,8 +27,8 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < 365; i++) {
-            dates[i] = (calender.get(i)[0]);
+        for (String[] s: calender) {
+            dates.add(s[0]);
         }
         try (BufferedReader cr = new BufferedReader(new FileReader("customers.txt"))) {
             String line;
@@ -111,11 +111,18 @@ public class Main {
                         System.out.println("Er du sikker på at du vil ændre tiden "+Arrays.toString(cbookings.get(choice-1))+"?");
                         Menu.menu(new String[] {"Ja","Nej"});
                         if (Menu.op==1) {
-                            Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
                             System.out.println("Tiden "+cbookings.get(choice - 1)[0]+" kl. "+cbookings.get(choice - 1)[1]+" er slettet. Vil du booke en ny?");
+                            Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
+
 
                             Menu.menu(new String[]{"Ja", "Nej"});
                             if (Menu.op == 1) {
+                                System.out.println("Indtast dato (yyyy/MM/dd):");
+                                date = input.nextLine();
+
+                                Available.available(date);
+
+
                                 System.out.println("Indtast dag (dd):");
                                 String dayStr = input.nextLine();
                                 String[] dateArr = date.split("/");
@@ -125,8 +132,9 @@ public class Main {
                                 System.out.println("Indtast tidspunkt (tt:mm):");
                                 String timeStr = input.nextLine();
 
+
                                 Book.book(date, timeStr, tlfnr);
-                                System.out.println("Din tid er nu ændret til "+date+" klokken " +timeStr);
+
                             }
 
 

@@ -52,14 +52,12 @@ public class Book {
         }
 
 
-        Main.calender.get(Arrays.asList(Main.dates).indexOf(date))[y]=telnr;
+        Main.calender.get(Main.dates.indexOf(date))[y]=telnr;
 
         ToFile.saveList(Main.calender);
 
-        if (telnr.equals("0")) {
 
-        }
-        else if (Main.phoneNumbers.contains(telnr)){
+        if (Main.phoneNumbers.contains(telnr)){
             Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.add(new String[]{date, time});
         }
         else {
@@ -113,14 +111,12 @@ public class Book {
             case "17:30" -> y=16;
         }
 
-        String telnr = Main.calender.get(Arrays.asList(Main.dates).indexOf(date))[y];
-        System.out.println(telnr);
-        Main.calender.get(Arrays.asList(Main.dates).indexOf(date))[y]="0";
+        String telnr = Main.calender.get(Main.dates.indexOf(date))[y];
+
+        Main.calender.get(Main.dates.indexOf(date))[y]="0";
 
         ToFile.saveList(Main.calender);
 
-//        System.out.println(Arrays.toString(Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.get(0)));
-//        System.out.println(Arrays.equals((new String[]{date, time}), Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.get(0)));
 
 
         for (int i=0; i<Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.size(); i++){
