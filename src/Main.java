@@ -220,12 +220,15 @@ public class Main {
                         int j=1;
                         for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
                             System.out.print(j+": "+Arrays.toString(s));
-                            if (Book.isPayed(s[0],s[1])){
+                            if (Book.isPayed(s[0],s[1])==1){
                                 System.out.println(", betalt");
 
                             }
-                            else {
+                            else if ((Book.isPayed(s[0],s[1])==1)){
                                 System.out.println(", ikke betalt");
+                            }
+                            else {
+                                System.out.println(", kredit givet");
                             }
                             j++;
 
@@ -244,15 +247,23 @@ public class Main {
                             String dateString = cbookings.get(choiceInt - 1)[0];
                             String timeString = cbookings.get(choiceInt - 1)[1];
 
-                            if (Book.isPayed(dateString,timeString)){
+                            if (Book.isPayed(dateString,timeString)==1){
                                 System.out.println("Der er betalt for tiden. Vil du tilføje ekstra?");
                                 Menu.menu(janej);
                                 if (Menu.op==1){
                                     Book.pay(dateString,timeString,"300");
                                 }
                             }
+                            else if (Book.isPayed(dateString,timeString)==-1){
+                                Book.pay(dateString,timeString, Book.debt);
+                            }
                             else {
-                                Book.pay(dateString,timeString,"300");
+                                Menu.menu(new String[]{"Kontant","Kredit"});
+                                switch (Menu.op){
+                                    case 1 -> Book.pay(dateString,timeString,"300");
+                                    case 2 -> Book.pay(dateString,timeString,"-300");
+                                }
+
                             }
 
 

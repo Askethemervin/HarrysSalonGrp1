@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Book {
 
     static int y;
+    static String debt;
 
     static void book(String date, String time, String telnr) throws IOException {
 
@@ -170,7 +171,7 @@ public class Book {
 
 
     }
-    static boolean isPayed(String date, String time) throws IOException {
+    static int isPayed(String date, String time) throws IOException {
 
         switch (time) {
             case "10:00" -> y = 1;
@@ -206,7 +207,15 @@ public class Book {
             case "17:30" -> y = 16;
         }
 
-        return Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]) != 0;
+        if (Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])==0){
+            return 0;
+        } else if (Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])>0) {
+            return 1;
+        }
+        else {
+            debt = Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])*-1);
+            return -1;
+        }
 
 
     }
