@@ -123,7 +123,7 @@ public class Available {
     }
 
     static void timeCheck(String date){
-        timeOptions = new ArrayList<String>();
+        timeOptions = new ArrayList<>();
 
         daynr=Main.dates.indexOf(date);
 
