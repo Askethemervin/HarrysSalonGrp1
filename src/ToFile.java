@@ -7,11 +7,11 @@ import java.util.List;
 
 public class ToFile {
 
-    public static void saveList(List<String[]> dataLines) throws IOException {
-        FileWriter fil = new FileWriter("calender.txt");
+    public static void saveList(List<String[]> dataLines,String s) throws IOException {
+        FileWriter fil = new FileWriter(s);
         PrintWriter ud = new PrintWriter(fil);
-        for (String[] s: dataLines){
-            ud.println(String.join(",",s));
+        for (String[] sa: dataLines){
+            ud.println(String.join(",",sa));
         }
         fil.close();
     }

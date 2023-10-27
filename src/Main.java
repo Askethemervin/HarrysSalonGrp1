@@ -10,18 +10,28 @@ public class Main {
     static ArrayList<Customer> customers = new ArrayList<>();
     static ArrayList<String> phoneNumbers = new ArrayList<>();
     static ArrayList<String> dates = new ArrayList<>();
-
+    static ArrayList<String[]> payments = new ArrayList<>();
 
     static Scanner input = new Scanner(System.in);
     static String date;
 
-
+    
     public static void main(String[] args) throws IOException {
+        String[] janej = new String[]{"Ja","Nej"};
         try (BufferedReader br = new BufferedReader(new FileReader("calender.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 calender.add(values);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader("PaymentCalender.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                payments.add(values);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -54,7 +64,7 @@ public class Main {
 
         while (true) {
             System.out.println();
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Salg"};
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -66,7 +76,7 @@ public class Main {
 
                         Available.available(date);
                         System.out.println("Vil du booke tid?");
-                        Menu.menu(new String[]{"Ja", "Nej"});
+                        Menu.menu(janej);
                         if (Menu.op == 1) {
                             System.out.println("Indtast dag (dd):");
                             String dayStr = input.nextLine();
@@ -118,7 +128,7 @@ public class Main {
                     }
 
                         System.out.println("Kunne du tænke dig at ændre en tid?");
-                        Menu.menu(new String[]{"Ja", "Nej"});
+                        Menu.menu(janej);
                         if (Menu.op == 1) {
 
                             System.out.println("Indtast nummeret for tiden");
@@ -129,13 +139,13 @@ public class Main {
 
 
                             System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
-                            Menu.menu(new String[]{"Ja", "Nej"});
+                            Menu.menu(janej);
                             if (Menu.op == 1) {
                                 System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er slettet. Vil du booke en ny?");
                                 Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
 
 
-                                Menu.menu(new String[]{"Ja", "Nej"});
+                                Menu.menu(janej);
                                 if (Menu.op == 1) {
                                     System.out.println("Indtast dato (yyyy/MM/dd):");
                                     date = input.nextLine();
@@ -174,14 +184,14 @@ public class Main {
                     if (dates.contains(date)) {
                         Available.reserved(date);
                         System.out.println("Vil du slette en tid?");
-                        Menu.menu(new String[]{"Ja", "Nej"});
+                        Menu.menu(janej);
                         if (Menu.op == 1) {
 
                             System.out.println("Indtast tidspunkt (tt:mm):");
                             String timeStr = input.nextLine();
 
                             System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
-                            Menu.menu(new String[]{"Ja", "Nej"});
+                            Menu.menu(janej);
                             if (Menu.op == 1) {
                                 Book.delete(date, timeStr);
                             }
@@ -200,6 +210,57 @@ public class Main {
                     ToFile.saveCustomer(customers);
 
 
+                }
+                case 5 -> {
+                    System.out.println("Indtast telefon nr.;");
+                    String tlfnr=input.nextLine();
+
+                    if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
+                        System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
+                        int j=1;
+                        for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
+                            System.out.print(j+": "+Arrays.toString(s));
+                            if (Book.isPayed(s[0],s[1])){
+                                System.out.println(", betalt");
+
+                            }
+                            else {
+                                System.out.println(", ikke betalt");
+                            }
+                            j++;
+
+                        }
+
+                        System.out.println("Kunne du tænke dig at betale for en tid?");
+                        Menu.menu(janej);
+                        if (Menu.op == 1) {
+
+                            System.out.println("Indtast nummeret for tiden");
+
+                            ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
+
+                            int choiceInt = Menu.inInt(cbookings.size());
+
+                            String dateString = cbookings.get(choiceInt - 1)[0];
+                            String timeString = cbookings.get(choiceInt - 1)[1];
+
+                            if (Book.isPayed(dateString,timeString)){
+                                System.out.println("Der er betalt for tiden. Vil du tilføje ekstra?");
+                                Menu.menu(janej);
+                                if (Menu.op==1){
+                                    Book.pay(dateString,timeString,"300");
+                                }
+                            }
+                            else {
+                                Book.pay(dateString,timeString,"300");
+                            }
+
+
+                        }
+
+
+                    }
+                    else System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har ingen reservationer.");
                 }
             }
         }
