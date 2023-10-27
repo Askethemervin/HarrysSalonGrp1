@@ -6,15 +6,6 @@ public class Book {
 
     static int y;
 
-    public static void main(String[] args) throws IOException {
-
-
-
-    }
-
-
-
-
     static void book(String date, String time, String telnr) throws IOException {
 
         switch (time) {
