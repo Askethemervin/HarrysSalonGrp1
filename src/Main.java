@@ -171,20 +171,23 @@ public class Main {
 
                     System.out.println("Indtast dato (yyyy/MM/dd):");
                     date = input.nextLine();
-                    Available.reserved(date);
-                    System.out.println("Vil du slette en tid?");
-                    Menu.menu(new String[]{"Ja", "Nej"});
-                    if (Menu.op == 1) {
-
-                        System.out.println("Indtast tidspunkt (tt:mm):");
-                        String timeStr = input.nextLine();
-
-                        System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
+                    if (dates.contains(date)) {
+                        Available.reserved(date);
+                        System.out.println("Vil du slette en tid?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
-                            Book.delete(date, timeStr);
+
+                            System.out.println("Indtast tidspunkt (tt:mm):");
+                            String timeStr = input.nextLine();
+
+                            System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
+                            Menu.menu(new String[]{"Ja", "Nej"});
+                            if (Menu.op == 1) {
+                                Book.delete(date, timeStr);
+                            }
                         }
                     }
+                    else System.out.println("Ugyldig dato valgt.");
                 }
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");

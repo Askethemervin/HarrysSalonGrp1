@@ -78,40 +78,40 @@ public class Available {
             for (int i = 1; i < 17; i++) {
                 if (!day[i].equals("0")) {
                     switch (i) {
-                        case 1 -> System.out.print("10:00, ");
+                        case 1 -> System.out.print("10:00");
 
-                        case 2 -> System.out.print("10:30, ");
+                        case 2 -> System.out.print("10:30");
 
-                        case 3 -> System.out.print("11:00, ");
+                        case 3 -> System.out.print("11:00");
 
-                        case 4 -> System.out.print("11:30, ");
+                        case 4 -> System.out.print("11:30");
 
-                        case 5 -> System.out.print("12:00, ");
+                        case 5 -> System.out.print("12:00");
 
-                        case 6 -> System.out.print("12:30, ");
+                        case 6 -> System.out.print("12:30");
 
-                        case 7 -> System.out.print("13:00, ");
+                        case 7 -> System.out.print("13:00");
 
-                        case 8 -> System.out.print("13:30, ");
+                        case 8 -> System.out.print("13:30");
 
-                        case 9 -> System.out.print("14:00, ");
+                        case 9 -> System.out.print("14:00");
 
-                        case 10 -> System.out.print("14:30, ");
+                        case 10 -> System.out.print("14:30");
 
-                        case 11 -> System.out.print("15:00, ");
+                        case 11 -> System.out.print("15:00");
 
-                        case 12 -> System.out.print("15:30, ");
+                        case 12 -> System.out.print("15:30");
 
-                        case 13 -> System.out.print("16:00, ");
+                        case 13 -> System.out.print("16:00");
 
-                        case 14 -> System.out.print("16:30, ");
+                        case 14 -> System.out.print("16:30");
 
-                        case 15 -> System.out.print("17:00, ");
+                        case 15 -> System.out.print("17:00");
 
-                        case 16 -> System.out.print("17:30 ");
+                        case 16 -> System.out.print("17:30");
                     }
 
-
+                    System.out.println(", Tlf: "+day[i]);
                 }
 
 
