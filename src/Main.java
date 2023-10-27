@@ -3,14 +3,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    static List<String[]> calender = new ArrayList<>();
-    static List<Customer> customers = new ArrayList<>();
-    static List<String> phoneNumbers = new ArrayList<>();
-    static String[] dates = new String[365];
+    static ArrayList<String[]> calender = new ArrayList<>();
+    static ArrayList<Customer> customers = new ArrayList<>();
+    static ArrayList<String> phoneNumbers = new ArrayList<>();
+    static ArrayList<String> dates = new ArrayList<>();
 
 
     static Scanner input = new Scanner(System.in);
@@ -27,8 +26,8 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < 365; i++) {
-            dates[i] = (calender.get(i)[0]);
+        for (String[] s: calender) {
+            dates.add(s[0]);
         }
         try (BufferedReader cr = new BufferedReader(new FileReader("customers.txt"))) {
             String line;
@@ -54,7 +53,8 @@ public class Main {
 
 
         while (true) {
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Slet tid","Opret kunde", "Salg"};
+            System.out.println();
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Salg"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -62,34 +62,53 @@ public class Main {
                     System.out.println("Indtast dato (yyyy/MM/dd):");
                     date = input.nextLine();
 
-                    Available.available(date);
-                    System.out.println("Vil du booke tid?");
-                    Menu.menu(new String[]{"Ja", "Nej"});
-                    if (Menu.op == 1) {
-                        System.out.println("Indtast dag (dd):");
-                        String dayStr = input.nextLine();
-                        String[] dateArr = date.split("/");
-                        dateArr[2] = dayStr;
-                        date = String.join("/", dateArr);
+                    if (dates.contains(date)) {
 
-                        System.out.println("Indtast tidspunkt (tt:mm):");
-                        String timeStr = input.nextLine();
+                        Available.available(date);
+                        System.out.println("Vil du booke tid?");
+                        Menu.menu(new String[]{"Ja", "Nej"});
+                        if (Menu.op == 1) {
+                            System.out.println("Indtast dag (dd):");
+                            String dayStr = input.nextLine();
+                            if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
+                                String[] dateArr = date.split("/");
+                                if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
+                                    dateArr[1] = Integer.toString(Integer.parseInt(dateArr[1]) + 1);
+                                }
+                                dateArr[2] = dayStr;
 
-                        System.out.println("Telefon nr:");
-                        int teleNr = input.nextInt();
-                        input.nextLine();
-                        if (teleNr > 9999999 && teleNr < 100000000) {
-                            String teleStr = Integer.toString(teleNr);
-                            Book.book(date, timeStr, teleStr);
-                        } else System.out.println("Ugyldigt telefon nr.");
+                                date = String.join("/", dateArr);
+                                Available.timeCheck(date);
+                                System.out.println("Indtast tidspunkt (tt:mm):");
+                                String timeStr = input.nextLine();
 
+                                if (Available.timeOptions.contains(timeStr)) {
+
+                                    System.out.println("Telefon nr:");
+                                    int teleNr = input.nextInt();
+                                    input.nextLine();
+                                    if (teleNr > 9999999 && teleNr < 100000000) {
+                                        String teleStr = Integer.toString(teleNr);
+                                        Book.book(date, timeStr, teleStr);
+                                    } else System.out.println("Ugyldigt telefon nr.");
+                                } else {
+                                    System.out.println("Ugyldigt tidspunkt valgt");
+                                }
+                            } else {
+                                System.out.println("Ugyldig dag valgt");
+                            }
+
+                        }
                     }
+                    else System.out.println("Ugyldig dato valgt");
+
 
                 }
                 case 2 -> {
                     System.out.println("Indtast telefon nr.;");
                     String tlfnr=input.nextLine();
 
+                    if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
                     System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
                     int j=1;
                     for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
@@ -97,42 +116,48 @@ public class Main {
                         j++;
 
                     }
-                    System.out.println("Kunne du tænke dig at ændre en tid?");
-                    Menu.menu(new String[] {"Ja", "Nej"});
-                    if(Menu.op == 1) {
 
-                        System.out.println("Indtast nummeret for tiden");
+                        System.out.println("Kunne du tænke dig at ændre en tid?");
+                        Menu.menu(new String[]{"Ja", "Nej"});
+                        if (Menu.op == 1) {
 
-                        ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings ;
+                            System.out.println("Indtast nummeret for tiden");
 
-                        int choice = Menu.inInt(cbookings.size());
+                            ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
+
+                            int choice = Menu.inInt(cbookings.size());
 
 
-                        System.out.println("Er du sikker på at du vil ændre tiden "+Arrays.toString(cbookings.get(choice-1))+"?");
-                        Menu.menu(new String[] {"Ja","Nej"});
-                        if (Menu.op==1) {
-                            Book.book(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1], "0");
-                            System.out.println("Din tid er nu fjernet, du skal nu tilføje en ny.");
-                            Available.available(cbookings.get(choice - 1)[0]);
-                            System.out.println("Hvilken tid vil du ændre til?");
-                            System.out.println("Indtast dato (yyyy/MM/dd):");
-                            date = input.nextLine();
-
-                            Available.available(date);
-                            System.out.println("Vil du booke en ny tid?");
+                            System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
                             Menu.menu(new String[]{"Ja", "Nej"});
                             if (Menu.op == 1) {
-                                System.out.println("Indtast dag (dd):");
-                                String dayStr = input.nextLine();
-                                String[] dateArr = date.split("/");
-                                dateArr[2] = dayStr;
-                                date = String.join("/", dateArr);
+                                System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er slettet. Vil du booke en ny?");
+                                Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
 
-                                System.out.println("Indtast tidspunkt (tt:mm):");
-                                String timeStr = input.nextLine();
 
-                                Book.book(date, timeStr, tlfnr);
-                                System.out.println("Din tid er nu ændret til "+date+" klokken " +timeStr);
+                                Menu.menu(new String[]{"Ja", "Nej"});
+                                if (Menu.op == 1) {
+                                    System.out.println("Indtast dato (yyyy/MM/dd):");
+                                    date = input.nextLine();
+
+                                    Available.available(date);
+
+
+                                    System.out.println("Indtast dag (dd):");
+                                    String dayStr = input.nextLine();
+                                    String[] dateArr = date.split("/");
+                                    dateArr[2] = dayStr;
+                                    date = String.join("/", dateArr);
+
+                                    System.out.println("Indtast tidspunkt (tt:mm):");
+                                    String timeStr = input.nextLine();
+
+
+                                    Book.book(date, timeStr, tlfnr);
+
+                                }
+
+
                             }
 
 
@@ -140,9 +165,7 @@ public class Main {
 
 
                     }
-
-
-
+                    else System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har ingen reservationer.");
                 }
                 case 3 -> {
 
@@ -159,7 +182,7 @@ public class Main {
                         System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
                         Menu.menu(new String[]{"Ja", "Nej"});
                         if (Menu.op == 1) {
-                            Book.book(date, timeStr, "0");
+                            Book.delete(date, timeStr);
                         }
                     }
                 }
