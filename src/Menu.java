@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Menu {
     static int op;
     static Scanner input = new Scanner(System.in);
-    static String date;
 
     public static void main(String[] args) {
 
