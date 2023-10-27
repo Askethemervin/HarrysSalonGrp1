@@ -64,7 +64,7 @@ public class Main {
 
         while (true) {
             System.out.println();
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato"};
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Log ind"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -274,13 +274,24 @@ public class Main {
                     else System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har ingen reservationer.");
                 }
                 case 6 -> {
-                    System.out.println("Indtast dato (yyyy/MM/dd):");
-                    date = input.nextLine();
-                    searchByDate(date);
+                    if(Password.password()){
+                        System.out.println("Indtast dato (yyyy/MM/dd):");
+                        date = input.nextLine();
+                        searchByDate(date);
+                    }
+
+                }
+                case 7 -> {
+                    if(Password.password()){
+
+                    }
+
+                }
+
                 }
             }
         }
-    }
+
     private static void searchByDate(String date) throws IOException {
         System.out.println("Kunder og reservationer for dato: " + date);
         boolean found = false;
