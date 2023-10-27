@@ -257,7 +257,7 @@ public class Book {
 
 
 
-            return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])*-1);
+            return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
 
 
 
