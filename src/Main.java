@@ -3,14 +3,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    static List<String[]> calender = new ArrayList<>();
-    static List<Customer> customers = new ArrayList<>();
-    static List<String> phoneNumbers = new ArrayList<>();
-    static List<String> dates = new ArrayList<>();
+    static ArrayList<String[]> calender = new ArrayList<>();
+    static ArrayList<Customer> customers = new ArrayList<>();
+    static ArrayList<String> phoneNumbers = new ArrayList<>();
+    static ArrayList<String> dates = new ArrayList<>();
 
 
     static Scanner input = new Scanner(System.in);
