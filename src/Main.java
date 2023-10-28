@@ -14,10 +14,11 @@ public class Main {
 
     static Scanner input = new Scanner(System.in);
     static String date;
+    static String[] janej = new String[]{"Ja","Nej"};
 
     
     public static void main(String[] args) throws IOException {
-        String[] janej = new String[]{"Ja","Nej"};
+
         try (BufferedReader br = new BufferedReader(new FileReader("calender.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -214,6 +215,7 @@ public class Main {
                 case 5 -> {
                     System.out.println("Indtast telefon nr.;");
                     String tlfnr=input.nextLine();
+                    int price = 0;
 
                     if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
                         System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
@@ -224,7 +226,7 @@ public class Main {
                                 System.out.println(", betalt");
 
                             }
-                            else if ((Book.isPayed(s[0],s[1])==1)){
+                            else if ((Book.isPayed(s[0],s[1])==0)){
                                 System.out.println(", ikke betalt");
                             }
                             else {
@@ -249,22 +251,37 @@ public class Main {
 
                             if (Book.isPayed(dateString,timeString)==1){
                                 System.out.println("Der er betalt for tiden. Vil du tilføje ekstra?");
+                                Extras.price=Integer.parseInt(Book.payedPrice(dateString, timeString));
                                 Menu.menu(janej);
                                 if (Menu.op==1){
-                                    Book.pay(dateString,timeString,"300");
+                                    Extras.buy();
+
+                                    Book.pay(dateString,timeString,Integer.toString(Extras.price));
                                 }
                             }
                             else if (Book.isPayed(dateString,timeString)==-1){
                                 Book.pay(dateString,timeString, Book.debt);
+
                             }
                             else {
-                                Menu.menu(new String[]{"Kontant","Kredit"});
-                                switch (Menu.op){
-                                    case 1 -> Book.pay(dateString,timeString,"300");
-                                    case 2 -> Book.pay(dateString,timeString,"-300");
+                                System.out.println("Vil du tilføje ekstra?");
+                                Extras.price=200;
+                                Menu.menu(janej);
+                                if (Menu.op==1){
+                                    Extras.buy();
+
+                                    System.out.println(Extras.price);
+                                }
+                                System.out.println("Kontant betaling, eller kredit?");
+                                Menu.menu(new String[]{"Kontant", "Kredit"});
+                                switch (Menu.op) {
+                                    case 1 -> Book.pay(dateString, timeString, Integer.toString(Extras.price));
+                                    case 2 -> Book.pay(dateString, timeString, Integer.toString(-Extras.price));
                                 }
 
                             }
+
+
 
 
                         }
