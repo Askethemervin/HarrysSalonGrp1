@@ -7,8 +7,7 @@ public class Book {
     static int y;
     static String debt;
 
-    static void book(String date, String time, String telnr) throws IOException {
-
+    static void timeSwitch(String time){
         switch (time) {
             case "10:00" -> y=1;
 
@@ -42,6 +41,11 @@ public class Book {
 
             case "17:30" -> y=16;
         }
+    }
+
+    static void book(String date, String time, String telnr) throws IOException {
+
+        timeSwitch(time);
 
 
         Main.calender.get(Main.dates.indexOf(date))[y]=telnr;
@@ -69,39 +73,7 @@ public class Book {
 
     static void delete(String date, String time) throws IOException {
 
-        switch (time) {
-            case "10:00" -> y=1;
-
-            case "10:30" -> y=2;
-
-            case "11:00" -> y=3;
-
-            case "11:30" -> y=4;
-
-            case "12:00" -> y=5;
-
-            case "12:30" -> y=6;
-
-            case "13:00" -> y=7;
-
-            case "13:30" -> y=8;
-
-            case "14:00" -> y=9;
-
-            case "14:30" -> y=10;
-
-            case "15:00" -> y=11;
-
-            case "15:30" -> y=12;
-
-            case "16:00" -> y=13;
-
-            case "16:30" -> y=14;
-
-            case "17:00" -> y=15;
-
-            case "17:30" -> y=16;
-        }
+        timeSwitch(time);
 
         String telnr = Main.calender.get(Main.dates.indexOf(date))[y];
 
@@ -128,39 +100,7 @@ public class Book {
 
     static void pay(String date, String time, String price) throws IOException {
 
-        switch (time) {
-            case "10:00" -> y = 1;
-
-            case "10:30" -> y = 2;
-
-            case "11:00" -> y = 3;
-
-            case "11:30" -> y = 4;
-
-            case "12:00" -> y = 5;
-
-            case "12:30" -> y = 6;
-
-            case "13:00" -> y = 7;
-
-            case "13:30" -> y = 8;
-
-            case "14:00" -> y = 9;
-
-            case "14:30" -> y = 10;
-
-            case "15:00" -> y = 11;
-
-            case "15:30" -> y = 12;
-
-            case "16:00" -> y = 13;
-
-            case "16:30" -> y = 14;
-
-            case "17:00" -> y = 15;
-
-            case "17:30" -> y = 16;
-        }
+        timeSwitch(time);
 
 
         Main.payments.get(Main.dates.indexOf(date))[y-1] = price;
@@ -173,39 +113,7 @@ public class Book {
     }
     static int isPayed(String date, String time) throws IOException {
 
-        switch (time) {
-            case "10:00" -> y = 1;
-
-            case "10:30" -> y = 2;
-
-            case "11:00" -> y = 3;
-
-            case "11:30" -> y = 4;
-
-            case "12:00" -> y = 5;
-
-            case "12:30" -> y = 6;
-
-            case "13:00" -> y = 7;
-
-            case "13:30" -> y = 8;
-
-            case "14:00" -> y = 9;
-
-            case "14:30" -> y = 10;
-
-            case "15:00" -> y = 11;
-
-            case "15:30" -> y = 12;
-
-            case "16:00" -> y = 13;
-
-            case "16:30" -> y = 14;
-
-            case "17:00" -> y = 15;
-
-            case "17:30" -> y = 16;
-        }
+        timeSwitch(time);
 
         if (Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])==0){
             return 0;
@@ -221,40 +129,7 @@ public class Book {
     }
     static String payedPrice(String date, String time) throws IOException {
 
-        switch (time) {
-            case "10:00" -> y = 1;
-
-            case "10:30" -> y = 2;
-
-            case "11:00" -> y = 3;
-
-            case "11:30" -> y = 4;
-
-            case "12:00" -> y = 5;
-
-            case "12:30" -> y = 6;
-
-            case "13:00" -> y = 7;
-
-            case "13:30" -> y = 8;
-
-            case "14:00" -> y = 9;
-
-            case "14:30" -> y = 10;
-
-            case "15:00" -> y = 11;
-
-            case "15:30" -> y = 12;
-
-            case "16:00" -> y = 13;
-
-            case "16:30" -> y = 14;
-
-            case "17:00" -> y = 15;
-
-            case "17:30" -> y = 16;
-        }
-
+        timeSwitch(time);
 
 
             return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
