@@ -132,7 +132,7 @@ public class Book {
         timeSwitch(time);
 
 
-            return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
+        return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
 
 
 

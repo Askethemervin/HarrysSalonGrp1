@@ -62,10 +62,11 @@ public class Main {
 
 
 
+        boolean cont = true;
 
-        while (true) {
+        while (cont) {
             System.out.println();
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Log ind"};
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Luk program"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -301,11 +302,10 @@ public class Main {
 
                 }
                 case 7 -> {
-                    if(Password.password()){
-
-                    }
-
+                    System.out.println("Pogrammet lukkes");
+                    cont=false;
                 }
+
 
                 }
             }
