@@ -310,7 +310,7 @@ public class Main {
             }
         }
 
-    private static void searchByDate(String date) throws IOException {
+    private static void searchByDate(String date) {
         System.out.println("Kunder og reservationer for dato: " + date);
         boolean found = false;
         int totalPrice = 0;
