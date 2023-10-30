@@ -119,53 +119,57 @@ public class Main {
                 case 2 -> {
                     System.out.println("Indtast telefon nr.;");
                     String tlfnr=input.nextLine();
+                    if (phoneNumbers.contains(tlfnr)) {
 
-                    if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
-                    System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
-                    int j=1;
-                    for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
-                        System.out.println(j+": "+Arrays.toString(s));
-                        j++;
+                        if (!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
+                            System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har følgende reservationer:");
+                            int j = 1;
+                            for (String[] s : Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings) {
+                                System.out.println(j + ": " + Arrays.toString(s));
+                                j++;
 
-                    }
+                            }
 
-                        System.out.println("Kunne du tænke dig at ændre en tid?");
-                        Menu.menu(janej);
-                        if (Menu.op == 1) {
-
-                            System.out.println("Indtast nummeret for tiden");
-
-                            ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
-
-                            int choice = Menu.inInt(cbookings.size());
-
-
-                            System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
+                            System.out.println("Kunne du tænke dig at flytte en reservation?");
                             Menu.menu(janej);
                             if (Menu.op == 1) {
-                                System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er slettet. Vil du booke en ny?");
-                                Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
+
+                                System.out.println("Indtast nummeret for tiden");
+
+                                ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
+
+                                int choice = Menu.inInt(cbookings.size());
 
 
+                                System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
                                 Menu.menu(janej);
                                 if (Menu.op == 1) {
-                                    System.out.println("Indtast dato (yyyy/MM/dd):");
-                                    date = input.nextLine();
-
-                                    Available.available(date);
+                                    System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er slettet. Vil du booke en ny?");
+                                    Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
 
 
-                                    System.out.println("Indtast dag (dd):");
-                                    String dayStr = input.nextLine();
-                                    String[] dateArr = date.split("/");
-                                    dateArr[2] = dayStr;
-                                    date = String.join("/", dateArr);
+                                    Menu.menu(janej);
+                                    if (Menu.op == 1) {
+                                        System.out.println("Indtast dato (yyyy/MM/dd):");
+                                        date = input.nextLine();
 
-                                    System.out.println("Indtast tidspunkt (tt:mm):");
-                                    String timeStr = input.nextLine();
+                                        Available.available(date);
 
 
-                                    Book.book(date, timeStr, tlfnr);
+                                        System.out.println("Indtast dag (dd):");
+                                        String dayStr = input.nextLine();
+                                        String[] dateArr = date.split("/");
+                                        dateArr[2] = dayStr;
+                                        date = String.join("/", dateArr);
+
+                                        System.out.println("Indtast tidspunkt (tt:mm):");
+                                        String timeStr = input.nextLine();
+
+
+                                        Book.book(date, timeStr, tlfnr);
+
+                                    }
+
 
                                 }
 
@@ -173,11 +177,10 @@ public class Main {
                             }
 
 
-                        }
-
-
+                        } else
+                            System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har ingen reservationer.");
                     }
-                    else System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har ingen reservationer.");
+                    else System.out.println("Kunde eksisterer ikke");
                 }
                 case 3 -> {
 
@@ -204,15 +207,21 @@ public class Main {
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
                     String nr = input.nextLine();
-                    if (!phoneNumbers.contains(nr)) {
-                        System.out.println("Indtast navn:");
-                        String name = input.nextLine();
+                    System.out.println("Telefon nr:");
+                    int teleNr = input.nextInt();
+                    input.nextLine();
+                    if (teleNr > 9999999 && teleNr < 100000000) {
+                        if (!phoneNumbers.contains(nr)) {
+                            System.out.println("Indtast navn:");
+                            String name = input.nextLine();
 
-                        customers.add(new Customer(nr, name, new ArrayList<>()));
+                            customers.add(new Customer(nr, name, new ArrayList<>()));
 
-                        ToFile.saveCustomer(customers);
-                    }
-                    else System.out.println("Kunden er allerede oprettet.");
+                            ToFile.saveCustomer(customers);
+                        }
+                        else System.out.println("Kunden er allerede oprettet.");
+                    } else System.out.println("Ugyldigt telefon nr.");
+
 
                 }
                 case 5 -> {
