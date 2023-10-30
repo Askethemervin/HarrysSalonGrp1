@@ -15,10 +15,10 @@ public class Extras {
                 case 4 -> price = price + 30;
                 case 5 -> price = price + 40;
                 case 6 -> price = price + 110;
-                case 7 -> price = price + 110;
+                case 7 -> price = price + 115;
                 case 8 -> price = price + 150;
-                case 9 -> price = price + 150;
-                case 10 -> price = price + 150;
+                case 9 -> price = price + 160;
+                case 10 -> price = price + 300;
 
 
 
