@@ -204,13 +204,15 @@ public class Main {
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
                     String nr = input.nextLine();
-                    System.out.println("Indtast navn:");
-                    String name = input.nextLine();
+                    if (!phoneNumbers.contains(nr)) {
+                        System.out.println("Indtast navn:");
+                        String name = input.nextLine();
 
-                    customers.add(new Customer(nr,name,new ArrayList<>()));
+                        customers.add(new Customer(nr, name, new ArrayList<>()));
 
-                    ToFile.saveCustomer(customers);
-
+                        ToFile.saveCustomer(customers);
+                    }
+                    else System.out.println("Kunden er allerede oprettet.");
 
                 }
                 case 5 -> {
