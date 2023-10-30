@@ -281,7 +281,7 @@ public class Main {
                                 if (Menu.op==1){
                                     Extras.buy();
 
-                                    System.out.println(Extras.price);
+                                    System.out.println("Den samlede pris er " +Extras.price+" kr.");
                                 }
                                 System.out.println("Kontant betaling, eller kredit?");
                                 Menu.menu(new String[]{"Kontant", "Kredit"});

@@ -3,8 +3,6 @@ public class Extras {
 
     static void buy() {
 
-
-
         boolean done = true;
         while (done) {
             Menu.menu(new String[]{"Shampoo", "Voks", "Balsam", "Børste", "Kam", "Hårolie", "Skægolie", "Hårfarve: Sort", "Hårfarve: Blond", "Hårfarve: Grøn"});
