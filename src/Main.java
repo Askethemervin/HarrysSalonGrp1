@@ -216,7 +216,6 @@ public class Main {
                 case 5 -> {
                     System.out.println("Indtast telefon nr.;");
                     String tlfnr=input.nextLine();
-                    int price = 0;
 
                     if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
                         System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
@@ -322,7 +321,7 @@ public class Main {
                     System.out.println("Kunde: " + customer.name);
                     System.out.println("Telefon nr.: " + customer.tlfnr);
                     System.out.println("Tidspunkt: " + booking[1]);
-                    System.out.println("Transaktion: " + Book.payedPrice(date, booking[1]));
+                    System.out.println("Transaktion: " + Book.payedPrice(date, booking[1])+"\n");
 
                     totalPrice = totalPrice+Integer.parseInt(Book.payedPrice(date, booking[1]));
 

@@ -111,7 +111,7 @@ public class Book {
 
 
     }
-    static int isPayed(String date, String time) throws IOException {
+    static int isPayed(String date, String time) {
 
         timeSwitch(time);
 
@@ -127,7 +127,7 @@ public class Book {
 
 
     }
-    static String payedPrice(String date, String time) throws IOException {
+    static String payedPrice(String date, String time) {
 
         timeSwitch(time);
 
