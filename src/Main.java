@@ -296,7 +296,7 @@ public class Main {
                     if(Password.password()){
                         System.out.println("Indtast dato (yyyy/MM/dd):");
                         date = input.nextLine();
-                        searchByDate(date);
+                        Payments.searchByDate(date);
 
 
                     }
@@ -312,33 +312,6 @@ public class Main {
             }
         }
 
-    private static void searchByDate(String date) {
-        System.out.println("Kunder og reservationer for dato: " + date);
-        boolean found = false;
-        int totalPrice = 0;
 
-        for (Customer customer : customers) {
-            for (String[] booking : customer.bookings) {
-                if (booking[0].equals(date)) {
-                    System.out.println("Kunde: " + customer.name);
-                    System.out.println("Telefon nr.: " + customer.tlfnr);
-                    System.out.println("Tidspunkt: " + booking[1]);
-                    System.out.println("Transaktion: " + Book.payedPrice(date, booking[1])+"\n");
-
-                    totalPrice = totalPrice+Integer.parseInt(Book.payedPrice(date, booking[1]));
-
-                    found = true;
-                }
-
-            }
-
-        }
-
-        System.out.println("Indkomst for denne dato er "+totalPrice);
-
-        if (!found) {
-            System.out.println("Ingen reservationer fundet for denne dato.");
-        }
-    }
 
 }
