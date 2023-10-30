@@ -14,7 +14,7 @@ public class Extras {
                 case 3 -> price = price + 120;
 
             }
-            System.out.println("Vil du tilføje flere produkter");
+            System.out.println("Vil du tilføje flere produkter?");
             Menu.menu(Main.janej);
             if (Menu.op == 2) done = false;
 
