@@ -64,6 +64,8 @@ public class Main {
 
         boolean cont = true;
 
+        Holiday.holiday();
+
         while (cont) {
             System.out.println();
             String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Luk program"};

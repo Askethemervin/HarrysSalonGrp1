@@ -15,18 +15,19 @@ public class PaymentCalender {
         List<String[]> dataLines = new ArrayList<>();
 
 
-        for (int i=0; i<365; i++){
-           if (c.get(Calendar.DAY_OF_WEEK)!=7 && c.get(Calendar.DAY_OF_WEEK)!=1 ) {
-               dataLines.add(new String[]{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"});
+        for (int i = 0; i < 365; i++) {
+            if (c.get(Calendar.DAY_OF_WEEK) != 7 && c.get(Calendar.DAY_OF_WEEK) != 1) {
+                dataLines.add(new String[]{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"});
 
-           }
+            }
             c.add(Calendar.DATE, 1);
 
         }
 
-        ToFile.saveList(dataLines,"PaymentCalender.txt");
+        ToFile.saveList(dataLines, "PaymentCalender.txt");
     }
 
 
-}
 
+
+    }
