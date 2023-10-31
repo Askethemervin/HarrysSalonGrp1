@@ -57,7 +57,7 @@ public class Calender {
 
             if (d.get(Calendar.DAY_OF_WEEK)==2 ||  d.get(Calendar.DAY_OF_WEEK)==3 ||  d.get(Calendar.DAY_OF_WEEK)==4 ||  d.get(Calendar.DAY_OF_WEEK)==5 ||  d.get(Calendar.DAY_OF_WEEK)==6){
                 Main.dates.add(sdf.format(d.getTime()));
-                System.out.println(sdf.format(d.getTime()));
+                Main.payments.add(new String[]{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"});
             }
 
 
@@ -65,6 +65,7 @@ public class Calender {
         }
 
         ToFile.saveList(Main.calender,"calender.txt");
+        ToFile.saveList(Main.payments, "PaymentCalender.txt");
 
     }
 }
