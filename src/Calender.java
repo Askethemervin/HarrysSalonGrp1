@@ -44,7 +44,7 @@ public class Calender {
         long diff = TimeUnit.DAYS.convert(date.getTime()-(new Date()).getTime(), TimeUnit.MILLISECONDS);
         Calendar d = Calendar.getInstance();
         d.setTime(date);
-        System.out.println(365-diff);
+
         for (int i=0; i<=365-diff; i++){
             d.add(Calendar.DATE, 1);
             switch (d.get(Calendar.DAY_OF_WEEK)) {
