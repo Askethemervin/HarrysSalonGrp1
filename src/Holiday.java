@@ -50,57 +50,62 @@ public class Holiday {
         int date11 = Main.dates.indexOf(date1);
         int date22 = Main.dates.indexOf(date2);
         boolean e = true;
+        boolean f = true;
         ArrayList<String> ls = new ArrayList<>();
 
         for (int i = date11; i <= date22; i++) {
 
             for (int j = 1; j <= 16; j++) {
 
-                if(Main.calender.get(i)[j] != "0") {
+                if (!Main.calender.get(i)[j].equals("0")) {
 
                     e = false;
-                    ls.add(Main.dates.get(i)+ " "+Available.timeindex(j)+" telnr: "+Main.calender.get(i)[j]);
+                    ls.add(Main.dates.get(i) + " " + Available.timeindex(j) + " telnr: " + Main.calender.get(i)[j]);
 
                 }
-
 
 
             }
 
         }
-        if(!e) {
+        if (!e) {
 
-            System.out.println("Følgende tider er booked i det givne tidsrum"+ls);
+            System.out.println("Følgende tider er booked i det givne tidsrum");
+
+            for (String g:ls)
+            { System.out.println(g);}
 
             System.out.println("Ønsker du at fortsætte?");
 
             Menu.menu(Main.janej);
 
-            if (Menu.op == 1) {
+            if (Menu.op == 2) {
 
-
-
-            }
-
-        }
-
-        for (int i = date11; i <= date22; i++) {
-
-            for (int j = 1; j <= 16; j++) {
-
-                Main.calender.get(i)[j] = "1";
-
+                f = false;
 
             }
 
         }
 
-        ToFile.saveList(Main.calender, "calender.txt");
+        if (f){
+            for (int i = date11; i <= date22; i++) {
 
-        String[] holiday = new String[]{date1, date2};
-        Main.holidays.add(holiday);
-        ToFile.saveList(Main.holidays, "holidays.txt");
-        System.out.println("Din ferie er nu oprettet i kalenderen");
+                for (int j = 1; j <= 16; j++) {
+
+                    Main.calender.get(i)[j] = "1";
+
+
+                }
+
+            }
+
+            ToFile.saveList(Main.calender, "calender.txt");
+
+            String[] holiday = new String[]{date1, date2};
+            Main.holidays.add(holiday);
+            ToFile.saveList(Main.holidays, "holidays.txt");
+            System.out.println("Din ferie er nu oprettet i kalenderen");
+        }
     }
 
 
