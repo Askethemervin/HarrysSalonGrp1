@@ -11,6 +11,7 @@ public class Main {
     static ArrayList<String> phoneNumbers = new ArrayList<>();
     static ArrayList<String> dates = new ArrayList<>();
     static ArrayList<String[]> payments = new ArrayList<>();
+    static ArrayList<String[]> holidays = new ArrayList<>();
 
     static Scanner input = new Scanner(System.in);
     static String date;
@@ -24,6 +25,15 @@ public class Main {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 calender.add(values);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader("holidays.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                holidays.add(values);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -64,11 +74,11 @@ public class Main {
 
         boolean cont = true;
 
-        Holiday.holiday();
+
 
         while (cont) {
             System.out.println();
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Luk program"};
+            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Feriedage","Luk program"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -313,7 +323,21 @@ public class Main {
 
                 }
                 case 7 -> {
-                    System.out.println("Pogrammet lukkes");
+                    System.out.println("Feriedage");
+
+                    Menu.menu(new String[]{"Book ferie", "se/slet ferie"});
+                    if(Menu.op==1){
+                        Holiday.holiday();
+                    } else Holiday.changeHoliday();
+
+
+
+                }
+
+
+
+                case 8 -> {
+                    System.out.println("Programmet lukkes");
                     cont=false;
                 }
 
