@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -38,22 +39,56 @@ public class Holiday {
 
             date2 = input2.nextLine();
 
-            if (Main.dates.contains(date2)) {
+            if (Main.dates.contains(date2) && Main.dates.indexOf(date1) <= Main.dates.indexOf(date2)) {
 
                 korrektinput = false;
             } else System.out.println("Du har indtastet en utilgængelig dato");
 
         }
 
+
         int date11 = Main.dates.indexOf(date1);
         int date22 = Main.dates.indexOf(date2);
-        int diff = date22 - date11;
+        boolean e = true;
+        ArrayList<String> ls = new ArrayList<>();
 
-        for (int i = 0; i <= diff; i++) {
+        for (int i = date11; i <= date22; i++) {
 
             for (int j = 1; j <= 16; j++) {
 
-                Main.calender.get(date11 + i)[j] = "1";
+                if(Main.calender.get(i)[j] != "0") {
+
+                    e = false;
+                    ls.add(Main.dates.get(i)+ " "+Available.timeindex(j)+" telnr: "+Main.calender.get(i)[j]);
+
+                }
+
+
+
+            }
+
+        }
+        if(!e) {
+
+            System.out.println("Følgende tider er booked i det givne tidsrum"+ls);
+
+            System.out.println("Ønsker du at fortsætte?");
+
+            Menu.menu(Main.janej);
+
+            if (Menu.op == 1) {
+
+
+
+            }
+
+        }
+
+        for (int i = date11; i <= date22; i++) {
+
+            for (int j = 1; j <= 16; j++) {
+
+                Main.calender.get(i)[j] = "1";
 
 
             }
