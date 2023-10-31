@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class Main {
     static String[] janej = new String[]{"Ja","Nej"};
 
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParseException {
 
         try (BufferedReader br = new BufferedReader(new FileReader("calender.txt"))) {
             String line;
@@ -37,9 +38,16 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         for (String[] s: calender) {
             dates.add(s[0]);
         }
+
+        Calender.addDays(dates);
+
+
+
+
         try (BufferedReader cr = new BufferedReader(new FileReader("customers.txt"))) {
             String line;
             while ((line = cr.readLine()) != null) {
@@ -226,79 +234,76 @@ public class Main {
                 case 5 -> {
                     System.out.println("Indtast telefon nr.;");
                     String tlfnr=input.nextLine();
+                    if (phoneNumbers.contains(tlfnr)) {
+                        if (!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
+                            System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har følgende reservationer:");
+                            int j = 1;
+                            for (String[] s : Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings) {
+                                System.out.print(j + ": " + Arrays.toString(s));
+                                if (Book.isPayed(s[0], s[1]) == 1) {
+                                    System.out.println(", betalt");
 
-                    if(!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
-                        System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har følgende reservationer:");
-                        int j=1;
-                        for (String[] s: Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings){
-                            System.out.print(j+": "+Arrays.toString(s));
-                            if (Book.isPayed(s[0],s[1])==1){
-                                System.out.println(", betalt");
-
-                            }
-                            else if ((Book.isPayed(s[0],s[1])==0)){
-                                System.out.println(", ikke betalt");
-                            }
-                            else {
-                                System.out.println(", kredit givet");
-                            }
-                            j++;
-
-                        }
-
-                        System.out.println("Kunne du tænke dig at betale for en tid?");
-                        Menu.menu(janej);
-                        if (Menu.op == 1) {
-
-                            System.out.println("Indtast nummeret for tiden");
-
-                            ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
-
-                            int choiceInt = Menu.inInt(cbookings.size());
-
-                            String dateString = cbookings.get(choiceInt - 1)[0];
-                            String timeString = cbookings.get(choiceInt - 1)[1];
-
-                            if (Book.isPayed(dateString,timeString)==1){
-                                System.out.println("Der er betalt for tiden. Vil du tilføje ekstra?");
-                                Extras.price=Integer.parseInt(Book.payedPrice(dateString, timeString));
-                                Menu.menu(janej);
-                                if (Menu.op==1){
-                                    Extras.buy();
-
-                                    Book.pay(dateString,timeString,Integer.toString(Extras.price));
+                                } else if ((Book.isPayed(s[0], s[1]) == 0)) {
+                                    System.out.println(", ikke betalt");
+                                } else {
+                                    System.out.println(", kredit givet");
                                 }
-                            }
-                            else if (Book.isPayed(dateString,timeString)==-1){
-                                Book.pay(dateString,timeString, Book.debt);
+                                j++;
 
                             }
-                            else {
-                                System.out.println("Vil du tilføje ekstra?");
-                                Extras.price=200;
-                                Menu.menu(janej);
-                                if (Menu.op==1){
-                                    Extras.buy();
 
-                                    System.out.println("Den samlede pris er " +Extras.price+" kr.");
+                            System.out.println("Kunne du tænke dig at betale for en tid?");
+                            Menu.menu(janej);
+                            if (Menu.op == 1) {
+
+                                System.out.println("Indtast nummeret for tiden");
+
+                                ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
+
+                                int choiceInt = Menu.inInt(cbookings.size());
+
+                                String dateString = cbookings.get(choiceInt - 1)[0];
+                                String timeString = cbookings.get(choiceInt - 1)[1];
+
+                                if (Book.isPayed(dateString, timeString) == 1) {
+                                    System.out.println("Der er betalt for tiden. Vil du tilføje ekstra?");
+                                    Extras.price = Integer.parseInt(Book.payedPrice(dateString, timeString));
+                                    Menu.menu(janej);
+                                    if (Menu.op == 1) {
+                                        Extras.buy();
+
+                                        Book.pay(dateString, timeString, Integer.toString(Extras.price));
+                                    }
+                                } else if (Book.isPayed(dateString, timeString) == -1) {
+                                    System.out.println("Indestående kredit " + Book.debt + " kr. betales.");
+                                    Book.pay(dateString, timeString, Book.debt);
+
+                                } else {
+                                    System.out.println("Vil du tilføje ekstra?");
+                                    Extras.price = 200;
+                                    Menu.menu(janej);
+                                    if (Menu.op == 1) {
+                                        Extras.buy();
+
+                                        System.out.println("Den samlede pris er " + Extras.price + " kr.");
+                                    }
+                                    System.out.println("Kontant betaling, eller kredit?");
+                                    Menu.menu(new String[]{"Kontant", "Kredit"});
+                                    switch (Menu.op) {
+                                        case 1 -> Book.pay(dateString, timeString, Integer.toString(Extras.price));
+                                        case 2 -> Book.pay(dateString, timeString, Integer.toString(-Extras.price));
+                                    }
+
                                 }
-                                System.out.println("Kontant betaling, eller kredit?");
-                                Menu.menu(new String[]{"Kontant", "Kredit"});
-                                switch (Menu.op) {
-                                    case 1 -> Book.pay(dateString, timeString, Integer.toString(Extras.price));
-                                    case 2 -> Book.pay(dateString, timeString, Integer.toString(-Extras.price));
-                                }
+
 
                             }
 
 
-
-
-                        }
-
-
+                        } else
+                            System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har ingen reservationer.");
                     }
-                    else System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name+" har ingen reservationer.");
+                    else System.out.println("Telefon nr. findes ikke.");
                 }
                 case 6 -> {
                     if(Password.password()){
