@@ -58,7 +58,7 @@ public class Available {
             System.out.println(dayName+", "+date + " er følgende tider ledige: ");
             for (int i = 1; i < 17; i++) {
                 if (day[i].equals("0")) {
-                    System.out.println(timeindex(i)+", ");
+                    System.out.print(timeindex(i)+", ");
 
                 }
             }
@@ -82,9 +82,8 @@ public class Available {
             System.out.println(dayName+", "+date + " er følgende tider reserverede: ");
             for (int i = 1; i < 17; i++) {
                 if (!day[i].equals("0")) {
-                    System.out.println(timeindex((i)));
+                    System.out.println(timeindex((i))+", Tlf: "+day[i]);
 
-                    System.out.println(", Tlf: "+day[i]);
                 }
 
         }
