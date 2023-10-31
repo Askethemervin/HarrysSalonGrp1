@@ -26,7 +26,7 @@ public class Password {
                 System.out.println("Du vil nu blive sendt tilbage.");
                 return false;
             } else {
-                System.out.println("Passwordet du indtastede var forket, prøv igen");
+                System.out.println("Passwordet du indtastede var forkert, prøv igen");
             }
 
 

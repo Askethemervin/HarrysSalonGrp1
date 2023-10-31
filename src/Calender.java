@@ -12,6 +12,7 @@ public class Calender {
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
     public static void main(String[] args) throws IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
 
