@@ -209,10 +209,9 @@ public class Main {
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
                     String nr = input.nextLine();
-                    System.out.println("Telefon nr:");
-                    int teleNr = input.nextInt();
+
                     input.nextLine();
-                    if (teleNr > 9999999 && teleNr < 100000000) {
+                    if (Integer.parseInt(nr) > 9999999 && Integer.parseInt(nr) < 100000000) {
                         if (!phoneNumbers.contains(nr)) {
                             System.out.println("Indtast navn:");
                             String name = input.nextLine();
@@ -283,7 +282,7 @@ public class Main {
                                 if (Menu.op==1){
                                     Extras.buy();
 
-                                    System.out.println(Extras.price);
+                                    System.out.println("Den samlede pris er " +Extras.price+" kr.");
                                 }
                                 System.out.println("Kontant betaling, eller kredit?");
                                 Menu.menu(new String[]{"Kontant", "Kredit"});
