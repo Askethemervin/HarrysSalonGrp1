@@ -164,7 +164,7 @@ public class Main {
                                 System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
                                 Menu.menu(janej);
                                 if (Menu.op == 1) {
-                                    System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er nu fjernet, hvilken til vil du ændre til?");
+                                    System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er nu fjernet, vil du stadig ændre tiden til en anden?");
                                     Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
 
 
@@ -172,21 +172,33 @@ public class Main {
                                     if (Menu.op == 1) {
                                         System.out.println("Indtast dato (yyyy/MM/dd):");
                                         date = input.nextLine();
-
-                                        Available.available(date);
-
-
-                                        System.out.println("Indtast dag (dd):");
-                                        String dayStr = input.nextLine();
-                                        String[] dateArr = date.split("/");
-                                        dateArr[2] = dayStr;
-                                        date = String.join("/", dateArr);
-
-                                        System.out.println("Indtast tidspunkt (tt:mm):");
-                                        String timeStr = input.nextLine();
+                                        if (dates.contains(date)) {
+                                            Available.available(date);
 
 
-                                        Book.book(date, timeStr, tlfnr);
+                                            System.out.println("Indtast dag (dd):");
+                                            String dayStr = input.nextLine();
+                                            if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
+                                                String[] dateArr = date.split("/");
+                                                dateArr[2] = dayStr;
+                                                date = String.join("/", dateArr);
+
+                                                System.out.println("Indtast tidspunkt (tt:mm):");
+                                                String timeStr = input.nextLine();
+                                                if(Available.timeOptions.contains(timeStr)) {
+
+
+                                                    Book.book(date, timeStr, tlfnr);
+                                                }
+                                                else
+                                                    System.out.println("Ugyldig tidspunkt valgt");
+                                            }
+                                            else
+                                                System.out.println("Ugyldig dag valgt");
+                                        }
+                                        else
+                                            System.out.println("Ugyldig dato valgt");
+
 
                                     }
 
