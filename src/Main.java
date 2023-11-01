@@ -170,34 +170,38 @@ public class Main {
 
                                     Menu.menu(janej);
                                     if (Menu.op == 1) {
-                                        System.out.println("Indtast dato (yyyy/MM/dd):");
-                                        date = input.nextLine();
-                                        if (dates.contains(date)) {
-                                            Available.available(date);
+                                        boolean john= true;
+                                        while(john) {
+                                            System.out.println("Indtast dato (yyyy/MM/dd):");
+                                            date = input.nextLine();
+                                            if (dates.contains(date)) {
+                                                while(john) {
+                                                    Available.available(date);
 
 
-                                            System.out.println("Indtast dag (dd):");
-                                            String dayStr = input.nextLine();
-                                            if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
-                                                String[] dateArr = date.split("/");
-                                                dateArr[2] = dayStr;
-                                                date = String.join("/", dateArr);
+                                                    System.out.println("Indtast dag (dd):");
+                                                    String dayStr = input.nextLine();
+                                                    if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
+                                                        while(john) {
+                                                            String[] dateArr = date.split("/");
+                                                            dateArr[2] = dayStr;
+                                                            date = String.join("/", dateArr);
 
-                                                System.out.println("Indtast tidspunkt (tt:mm):");
-                                                String timeStr = input.nextLine();
-                                                if(Available.timeOptions.contains(timeStr)) {
+                                                            System.out.println("Indtast tidspunkt (tt:mm):");
+                                                            String timeStr = input.nextLine();
+                                                            if (Available.timeOptions.contains(timeStr)) {
 
-
-                                                    Book.book(date, timeStr, tlfnr);
+                                                                Book.book(date, timeStr, tlfnr);
+                                                                john=false;
+                                                            } else
+                                                                System.out.println("Ugyldig tidspunkt valgt");
+                                                        }
+                                                    } else
+                                                        System.out.println("Ugyldig dag valgt");
                                                 }
-                                                else
-                                                    System.out.println("Ugyldig tidspunkt valgt");
-                                            }
-                                            else
-                                                System.out.println("Ugyldig dag valgt");
+                                            } else
+                                                System.out.println("Ugyldig dato valgt");
                                         }
-                                        else
-                                            System.out.println("Ugyldig dato valgt");
 
 
                                     }
