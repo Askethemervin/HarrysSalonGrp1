@@ -20,7 +20,7 @@ public class Main {
 
     
     public static void main(String[] args) throws IOException, ParseException {
-        boolean john= true;
+        boolean john;
 
         try (BufferedReader br = new BufferedReader(new FileReader("calender.txt"))) {
             String line;
