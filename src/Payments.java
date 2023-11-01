@@ -26,7 +26,7 @@ public class Payments {
             }
         }
 
-        System.out.println("Indkomst for denne dato er "+totalPrice);
+        System.out.println("\nIndkomst for denne dato er "+totalPrice);
 
         if (!found) {
             System.out.println("Ingen reservationer fundet for denne dato.");
