@@ -20,6 +20,7 @@ public class Main {
 
     
     public static void main(String[] args) throws IOException, ParseException {
+        boolean john= true;
 
         try (BufferedReader br = new BufferedReader(new FileReader("calender.txt"))) {
             String line;
@@ -80,11 +81,11 @@ public class Main {
 
 
 
-        boolean cont = true;
+        john = true;
 
 
 
-        while (cont) {
+        while (john) {
             System.out.println();
             String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Feriedage","Luk program"};
             Menu.menu(items);
@@ -170,7 +171,7 @@ public class Main {
 
                                     Menu.menu(janej);
                                     if (Menu.op == 1) {
-                                        boolean john= true;
+                                        john=true;
                                         while(john) {
                                             System.out.println("Indtast dato (yyyy/MM/dd):");
                                             date = input.nextLine();
@@ -359,7 +360,7 @@ public class Main {
 
                 case 8 -> {
                     System.out.println("Programmet lukkes");
-                    cont=false;
+                    john=false;
                 }
 
 
