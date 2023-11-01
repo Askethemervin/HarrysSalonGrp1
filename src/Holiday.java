@@ -92,6 +92,15 @@ public class Holiday {
 
                 for (int j = 1; j <= 16; j++) {
 
+                    String telnr = Main.calender.get(i)[j];
+                    if (!telnr.equals("0") && !telnr.equals("1")) {
+                        for (int l = Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.size() - 1; l >= 0; l--) {
+                            if (Arrays.equals((new String[]{Main.dates.get(i), Available.timeindex(j)}), Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.get(l))) {
+                                Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.remove(l);
+                            }
+
+                        }
+                    }
                     Main.calender.get(i)[j] = "1";
 
 
@@ -100,7 +109,7 @@ public class Holiday {
             }
 
             ToFile.saveList(Main.calender, "calender.txt");
-
+            ToFile.saveCustomer(Main.customers);
             String[] holiday = new String[]{date1, date2};
             Main.holidays.add(holiday);
             ToFile.saveList(Main.holidays, "holidays.txt");
