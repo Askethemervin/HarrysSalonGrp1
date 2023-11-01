@@ -1,4 +1,8 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Available {
     static int daynr;
@@ -6,6 +10,9 @@ public class Available {
     static String dayName;
     static String[] dayOptions = new String[5];
     static ArrayList<String> timeOptions;
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    static boolean cont;
+
     static String timeindex(int t) {
 
         switch (t) {
@@ -45,26 +52,55 @@ public class Available {
         return "";
     }
 
-    static void available(String date){
+    static void available(String date) throws ParseException {
+        String dateString1 = Main.dates.get(0);
+        String dateString2 = Main.dates.get(Main.dates.size() - 1);
+        Date date1 = sdf.parse(dateString1);
+        Date date2 = sdf.parse(dateString2);
+        Date dateD = sdf.parse(date);
 
-        daynr=Main.dates.indexOf(date);
 
-        for (int j=0; j<5; j++) {
-            day =Main.calender.get(daynr);
-            dayOptions[j]=date.split("/")[2];
-            dayName=day[17];
-
-            System.out.println(dayName+", "+date + " er følgende tider ledige: ");
-            for (int i = 1; i < 17; i++) {
-                if (day[i].equals("0")) {
-                    System.out.print(timeindex(i)+", ");
-
-                }
+        if (Main.dates.contains(date)) {
+            daynr = Main.dates.indexOf(date);
+            cont = true;
+        } else if (dateD.getTime() > date1.getTime() && (dateD.getTime() < date2.getTime())) {
+            Calendar d = Calendar.getInstance();
+            d.setTime(dateD);
+            d.add(Calendar.DATE, 1);
+            if (Main.dates.contains(sdf.format(d.getTime()))) {
+                daynr = Main.dates.indexOf(sdf.format(d.getTime()));
+                cont = true;
+            } else {
+                d.add(Calendar.DATE, 1);
+                daynr = Main.dates.indexOf(sdf.format(d.getTime()));
+                cont = true;
             }
-            System.out.println();
-            daynr++;
-            date=Main.dates.get(daynr);
-            System.out.println();
+        } else {
+            System.out.println("Ugyldig dato valgt");
+            cont = false;
+        }
+
+        if (cont) {
+
+
+            for (int j = 0; j < 5; j++) {
+                day = Main.calender.get(daynr);
+                date = Main.dates.get(daynr);
+                dayOptions[j] = date.split("/")[2];
+                dayName = day[17];
+
+                System.out.println(dayName + ", " + date + " er følgende tider ledige: ");
+                for (int i = 1; i < 17; i++) {
+                    if (day[i].equals("0")) {
+                        System.out.print(timeindex(i) + ", ");
+
+                    }
+                }
+                System.out.println();
+                daynr++;
+                System.out.println();
+            }
+
         }
     }
 
