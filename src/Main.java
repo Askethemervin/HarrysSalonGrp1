@@ -164,7 +164,7 @@ public class Main {
                                 System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
                                 Menu.menu(janej);
                                 if (Menu.op == 1) {
-                                    System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er slettet. Vil du booke en ny?");
+                                    System.out.println("Tiden " + cbookings.get(choice - 1)[0] + " kl. " + cbookings.get(choice - 1)[1] + " er nu fjernet, hvilken til vil du ændre til?");
                                     Book.delete(cbookings.get(choice - 1)[0], cbookings.get(choice - 1)[1]);
 
 
