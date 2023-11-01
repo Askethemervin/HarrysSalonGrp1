@@ -20,9 +20,7 @@ public class Payments {
 
                     found = true;
                 }
-
             }
-
         }
 
         System.out.println("Indkomst for denne dato er "+totalPrice);

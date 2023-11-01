@@ -8,17 +8,15 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Calender {
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-
 
     public static void addDays(ArrayList<String> dates) throws ParseException, IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         long diff;
         Calendar d = Calendar.getInstance();
         if (dates.isEmpty()){
             d.setTime(new Date());
             d.add(Calendar.DATE, -1);
             diff=0;
-
         }
         else {
             String dateString = dates.get(dates.size() - 1);
@@ -40,8 +38,6 @@ public class Calender {
                 Main.dates.add(sdf.format(d.getTime()));
                 Main.payments.add(new String[]{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"});
             }
-
-
 
         }
 

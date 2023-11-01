@@ -90,11 +90,7 @@ public class Book {
 
         }
 
-
-
         ToFile.saveCustomer(Main.customers);
-
-
 
     }
 
@@ -107,10 +103,8 @@ public class Book {
 
         ToFile.saveList(Main.payments, "PaymentCalender.txt");
 
-
-
-
     }
+
     static int isPayed(String date, String time) {
 
         timeSwitch(time);
@@ -131,10 +125,7 @@ public class Book {
 
         timeSwitch(time);
 
-
         return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
-
-
 
     }
 }

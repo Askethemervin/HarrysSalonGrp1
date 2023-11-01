@@ -4,9 +4,7 @@ public class Password {
     static String passwords;
     static String a;
 
-
     static boolean password(){
-
 
         Scanner input=new Scanner(System.in);
         passwords="hairyharry";
@@ -28,7 +26,6 @@ public class Password {
             } else {
                 System.out.println("Passwordet du indtastede var forkert, prøv igen");
             }
-
 
         }
         return false;

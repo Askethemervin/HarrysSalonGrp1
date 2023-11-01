@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 public class Holiday {
 
+    static String date1;
+    static String date2;
 
+    static int date1int;
+    static int date2int;
     static void holiday() throws IOException {
-
-        String date1 = "";
-        String date2 = "";
 
 
         Scanner input1 = new Scanner(System.in);
-
         Scanner input2 = new Scanner(System.in);
 
         boolean korrektinput = true;
@@ -28,7 +28,6 @@ public class Holiday {
                 korrektinput = false;
 
             } else System.out.println("Du har indtastet en utilgængelig dato");
-
 
         }
         System.out.println("Slut dato for ferien (yyyy/MM/dd)");
@@ -46,14 +45,13 @@ public class Holiday {
 
         }
 
-
-        int date11 = Main.dates.indexOf(date1);
-        int date22 = Main.dates.indexOf(date2);
+        date1int = Main.dates.indexOf(date1);
+        date2int = Main.dates.indexOf(date2);
         boolean e = true;
         boolean f = true;
         ArrayList<String> ls = new ArrayList<>();
 
-        for (int i = date11; i <= date22; i++) {
+        for (int i = date1int; i <= date2int; i++) {
 
             for (int j = 1; j <= 16; j++) {
 
@@ -63,19 +61,16 @@ public class Holiday {
                     ls.add(Main.dates.get(i) + " " + Available.timeindex(j) + " telnr: " + Main.calender.get(i)[j]);
 
                 }
-
-
             }
-
         }
         if (!e) {
 
-            System.out.println("Følgende tider er booked i det givne tidsrum");
+            System.out.println("Følgende tider er bookede i det givne tidsrum");
 
             for (String g:ls)
             { System.out.println(g);}
 
-            System.out.println("Ønsker du at fortsætte?");
+            System.out.println("Ønsker stadig at oprette ferien?");
 
             Menu.menu(Main.janej);
 
@@ -88,7 +83,7 @@ public class Holiday {
         }
 
         if (f){
-            for (int i = date11; i <= date22; i++) {
+            for (int i = date1int; i <= date2int; i++) {
 
                 for (int j = 1; j <= 16; j++) {
 
@@ -102,10 +97,7 @@ public class Holiday {
                         }
                     }
                     Main.calender.get(i)[j] = "1";
-
-
                 }
-
             }
 
             ToFile.saveList(Main.calender, "calender.txt");
@@ -127,24 +119,20 @@ public class Holiday {
         System.out.println("Vil du slette ferie?");
         Menu.menu(Main.janej);
         if(Menu.op==1){
-            System.out.println("Indtast nr for ferie");
+            System.out.println("Indtast nr for ferie [1,"+Main.holidays.size()+"]");
             int choice = Menu.inInt(Main.holidays.size())-1;
 
+        date1 = Main.holidays.get(choice)[0];
+        date2 = Main.holidays.get(choice)[1];
 
+        date1int = Main.dates.indexOf(date1);
+        date2int = Main.dates.indexOf(date2);
 
-        String date1 = Main.holidays.get(choice)[0];
-        String date2 = Main.holidays.get(choice)[1];
-
-
-        int date11 = Main.dates.indexOf(date1);
-        int date22 = Main.dates.indexOf(date2);
-        int diff = date22 - date11;
-
-        for (int i = 0; i <= diff; i++) {
+        for (int i = date1int; i <= date2int; i++) {
 
             for (int j = 1; j <= 16; j++) {
 
-                Main.calender.get(date11 + i)[j] = "0";
+                Main.calender.get(i)[j] = "0";
 
 
             }
@@ -157,9 +145,9 @@ public class Holiday {
         Main.holidays.remove(choice);
         ToFile.saveList(Main.holidays, "holidays.txt");
             System.out.println("Din ferie er nu slettet fra kalenderen");
+        }
     }
-
-}}
+}
 
 
 

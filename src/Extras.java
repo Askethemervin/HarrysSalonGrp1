@@ -5,7 +5,7 @@ public class Extras {
 
         boolean done = true;
         while (done) {
-            Menu.menu(new String[]{"Shampoo", "Voks", "Balsam", "Børste", "Kam", "Hårolie", "Skægolie", "Hårfarve: Sort", "Hårfarve: Blond", "Hårfarve: Grøn"});
+            Menu.menu(new String[]{"Shampoo, 100 kr.", "Voks, 50 kr.", "Balsam, 120 kr.", "Børste, 30 kr.", "Kam, 40 kr.", "Hårolie, 110 kr.", "Skægolie, 115 kr.", "Hårfarve: Sort, 150 kr. ", "Hårfarve: Blond, 160 kr.", "Hårfarve: Grøn, 300 kr."});
             switch (Menu.op) {
                 case 1 -> price = price + 100;
                 case 2 -> price = price + 50;
@@ -18,13 +18,10 @@ public class Extras {
                 case 9 -> price = price + 160;
                 case 10 -> price = price + 300;
 
-
-
             }
             System.out.println("Vil du tilføje flere produkter?");
             Menu.menu(Main.janej);
             if (Menu.op == 2) done = false;
-
 
         }
     }

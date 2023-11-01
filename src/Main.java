@@ -243,15 +243,15 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
-                    String nr = input.nextLine();
+                    int nr = Menu.inInt(99999999);
 
                     input.nextLine();
-                    if (Integer.parseInt(nr) > 9999999 && Integer.parseInt(nr) < 100000000) {
-                        if (!phoneNumbers.contains(nr)) {
+                    if (nr > 9999999) {
+                        if (!phoneNumbers.contains(Integer.toString(nr))) {
                             System.out.println("Indtast navn:");
                             String name = input.nextLine();
 
-                            customers.add(new Customer(nr, name, new ArrayList<>()));
+                            customers.add(new Customer(Integer.toString(nr), name, new ArrayList<>()));
 
                             ToFile.saveCustomer(customers);
                         }
@@ -347,7 +347,7 @@ public class Main {
                 case 7 -> {
                     System.out.println("Feriedage");
 
-                    Menu.menu(new String[]{"Book ferie", "se/slet ferie"});
+                    Menu.menu(new String[]{"Book ferie", "Se/Slet ferie"});
                     if(Menu.op==1){
                         Holiday.holiday();
                     } else Holiday.changeHoliday();
