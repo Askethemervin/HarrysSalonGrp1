@@ -10,7 +10,11 @@ public class Payments {
                     System.out.println("Kunde: " + customer.name);
                     System.out.println("Telefon nr.: " + customer.tlfnr);
                     System.out.println("Tidspunkt: " + booking[1]);
-                    System.out.println("Transaktion: " + Book.payedPrice(date, booking[1])+"\n");
+                    if (Integer.parseInt(Book.payedPrice(date,booking[1]))<0){
+                        System.out.println("Aftale om kredit: "+Integer.parseInt(Book.payedPrice(date,booking[1]))*-1);
+                    }
+                    else {System.out.println("Transaktion: " + Book.payedPrice(date, booking[1])+"\n");
+                    }
 
                     totalPrice = totalPrice+Integer.parseInt(Book.payedPrice(date, booking[1]));
 
