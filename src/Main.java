@@ -80,9 +80,7 @@ public class Main {
         }
 
 
-
         boolean cont = true;
-
 
 
         while (cont) {
@@ -95,44 +93,7 @@ public class Main {
                     System.out.println("Indtast dato (yyyy/MM/dd):");
                     date = input.nextLine();
 
-
-
                     Available.available(date);
-                    System.out.println("Vil du booke tid?");
-                    Menu.menu(janej);
-                    if (Menu.op == 1) {
-                        System.out.println("Indtast dag (dd):");
-                        String dayStr = input.nextLine();
-                        if (Arrays.asList(Available.dayOptions).contains(dayStr)) {
-                            String[] dateArr = date.split("/");
-                            if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
-                                dateArr[1] = Integer.toString(Integer.parseInt(dateArr[1]) + 1);
-                            }
-                            dateArr[2] = dayStr;
-
-                            date = String.join("/", dateArr);
-                            Available.timeCheck(date);
-                            System.out.println("Indtast tidspunkt (tt:mm):");
-                            String timeStr = input.nextLine();
-
-                            if (Available.timeOptions.contains(timeStr)) {
-
-                                System.out.println("Telefon nr:");
-                                int teleNr = input.nextInt();
-                                input.nextLine();
-                                if (teleNr > 9999999 && teleNr < 100000000) {
-                                    String teleStr = Integer.toString(teleNr);
-                                    Book.book(date, timeStr, teleStr);
-                                } else System.out.println("Ugyldigt telefon nr.");
-                            } else {
-                                System.out.println("Ugyldigt tidspunkt valgt");
-                            }
-                        } else {
-                            System.out.println("Ugyldig dag valgt");
-                        }
-
-                    }
-
 
 
                 }
