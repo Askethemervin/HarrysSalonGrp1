@@ -81,11 +81,11 @@ public class Main {
 
 
 
-        john = true;
+        boolean cont = true;
 
 
 
-        while (john) {
+        while (cont) {
             System.out.println();
             String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Feriedage","Luk program"};
             Menu.menu(items);
@@ -360,7 +360,7 @@ public class Main {
 
                 case 8 -> {
                     System.out.println("Programmet lukkes");
-                    john=false;
+                    cont=false;
                 }
 
 
