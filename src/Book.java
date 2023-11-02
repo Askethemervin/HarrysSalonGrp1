@@ -82,7 +82,6 @@ public class Book {
         ToFile.saveList(Main.calender,"calender.txt");
 
 
-
         for (int i=0; i<Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.size(); i++){
             if (Arrays.equals((new String[]{date, time}),Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.get(i))){
                 Main.customers.get(Main.phoneNumbers.indexOf(telnr)).bookings.remove(i);

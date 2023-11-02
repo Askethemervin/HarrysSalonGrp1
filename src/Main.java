@@ -238,6 +238,7 @@ public class Main {
                     }
                     else System.out.println("Telefon nr. findes ikke.");
                 }
+
                 case 6 -> {
                     if(Password.password()){
                         System.out.println("Indtast dato (yyyy/MM/dd):");

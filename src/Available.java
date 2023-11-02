@@ -179,10 +179,8 @@ public class Available {
                 System.out.println(timeindex((i))+", Tlf: "+day[i]);
 
             }
-
         }
         System.out.println();
-
     }
 
     static void timeCheck(String date){
