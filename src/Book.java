@@ -149,7 +149,7 @@ public class Book {
     }
     static String payedPrice(String date, String time) {
 
-        return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[ timeSwitch(time) - 1]));
+        return Main.payments.get(Main.dates.indexOf(date))[timeSwitch(time) - 1];
 
     }
 }
