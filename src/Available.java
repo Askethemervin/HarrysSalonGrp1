@@ -99,16 +99,14 @@ public class Available {
 
                         }
                     }
-                    System.out.println();
                     daynr++;
-                    System.out.println();
+                    System.out.println("\n");
                 }
                 System.out.println("Vil du booke tid?");
                 Menu.menu(Main.janej);
                 if (Menu.op == 1) {
                     System.out.println("Indtast dag (dd):");
                     String dayStr = Main.input.nextLine();
-                    System.out.println(Arrays.toString(dayOptions));
                     if (Arrays.asList(dayOptions).contains(dayStr)) {
                         String[] dateArr = dateIn.split("/");
                         if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
@@ -124,12 +122,10 @@ public class Available {
                         if (Available.timeOptions.contains(timeStr)) {
 
                             System.out.println("Telefon nr:");
-                            int teleNr = Main.input.nextInt();
-                            Main.input.nextLine();
-                            if (teleNr > 9999999 && teleNr < 100000000) {
-                                String teleStr = Integer.toString(teleNr);
-                                Book.book(dateIn, timeStr, teleStr);
-                            } else System.out.println("Ugyldigt telefon nr.");
+                            String teleNr = Menu.inTlf();
+
+                            Book.book(dateIn, timeStr, teleNr);
+
                         } else {
                             System.out.println("Ugyldigt tidspunkt valgt");
                         }

@@ -41,4 +41,21 @@ public class Menu {
         return num;
     }
 
+    static String inTlf() {
+        Boolean cont = true;
+        String tlf = "";
+        while (cont) {
+            tlf = input.nextLine();
+
+            if (tlf.length() == 8) {
+                try {
+                    Integer.parseInt(tlf);
+                    cont = false;
+                } catch (Exception e) {
+                    System.out.println("Ugyldigt telefon nr.");
+                }
+            } else System.out.println("Ugyldigt telefon nr.");
+        }
+        return tlf;
+    }
 }

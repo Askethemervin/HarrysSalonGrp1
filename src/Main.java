@@ -203,20 +203,18 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
-                    int nr = Menu.inInt(99999999);
+                    String tlf = Menu.inTlf();
 
-                    input.nextLine();
-                    if (nr > 9999999) {
-                        if (!phoneNumbers.contains(Integer.toString(nr))) {
-                            System.out.println("Indtast navn:");
-                            String name = input.nextLine();
 
-                            customers.add(new Customer(Integer.toString(nr), name, new ArrayList<>()));
+                    if (!phoneNumbers.contains(tlf)) {
+                        System.out.println("Indtast navn:");
+                        String name = input.nextLine();
 
-                            ToFile.saveCustomer(customers);
-                        }
-                        else System.out.println("Kunden er allerede oprettet.");
-                    } else System.out.println("Ugyldigt telefon nr.");
+                        customers.add(new Customer(tlf, name, new ArrayList<>()));
+
+                        ToFile.saveCustomer(customers);
+                    }
+                    else System.out.println("Kunden er allerede oprettet.");
 
 
                 }
