@@ -79,6 +79,7 @@ public class Main {
         }
 
         boolean cont = true;
+        boolean contx =true;
         String tlfnr;
 
         while (cont) {
@@ -134,7 +135,7 @@ public class Main {
                     else System.out.println("Kunde eksisterer ikke");
                 }
                 case 3 -> {
-
+                    contx=true;
                     System.out.println("Indtast dato (yyyy/MM/dd):");
                     date = input.nextLine();
                     if (dates.contains(date)) {
@@ -143,13 +144,21 @@ public class Main {
                         Menu.menu(janej);
                         if (Menu.op == 1) {
 
-                            System.out.println("Indtast tidspunkt (tt:mm):");
-                            String timeStr = input.nextLine();
+                            while (contx) {
+                                System.out.println("Indtast tidspunkt (tt:mm):");
+                                String timeStr = input.nextLine();
 
-                            System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
-                            Menu.menu(janej);
-                            if (Menu.op == 1) {
-                                Book.delete(date, timeStr);
+                                if (Available.timeOptions.contains(timeStr)) {
+
+                                    System.out.println("Er du sikker på at du vil slette denne tid " + timeStr + "?");
+                                    Menu.menu(janej);
+                                    if (Menu.op == 1) {
+                                        Book.delete(date, timeStr);
+                                    }
+                                    contx = false;
+
+                                }
+                                else System.out.println("Ugyldigt tidspunkt");
                             }
                         }
                     }

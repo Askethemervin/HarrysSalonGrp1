@@ -167,7 +167,7 @@ public class Available {
     }
 
     static void reserved(String date){
-
+        timeOptions = new ArrayList<>();
         daynr=Main.dates.indexOf(date);
 
         day =Main.calender.get(daynr);
@@ -177,7 +177,7 @@ public class Available {
         for (int i = 1; i < 17; i++) {
             if (!day[i].equals("0")) {
                 System.out.println(timeindex((i))+", Tlf: "+day[i]);
-
+                timeOptions.add(timeindex((i)));
             }
         }
         System.out.println();
