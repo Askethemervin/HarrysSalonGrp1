@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,92 +54,97 @@ public class Available {
         return "";
     }
 
-    static void available(String date) throws ParseException {
-        String dateIn=date;
+    static void available(String nr, boolean ask) throws ParseException, IOException {
+        cont = true;
+        String date;
         String dateString1 = Main.dates.get(0);
         String dateString2 = Main.dates.get(Main.dates.size() - 1);
         Date date1 = sdf.parse(dateString1);
         Date date2 = sdf.parse(dateString2);
-        try {
-            Date dateD = sdf.parse(date);
 
 
-            if (Main.dates.contains(date)) {
-                daynr = Main.dates.indexOf(date);
-                cont = true;
-            } else if (dateD.getTime() > date1.getTime() && (dateD.getTime() < date2.getTime())) {
-                Calendar d = Calendar.getInstance();
-                d.setTime(dateD);
-                d.add(Calendar.DATE, 1);
-                if (Main.dates.contains(sdf.format(d.getTime()))) {
-                    daynr = Main.dates.indexOf(sdf.format(d.getTime()));
-                    cont = true;
-                } else {
+        System.out.println("Indtast dato (yyyy/MM/dd):");
+        date = Main.input.nextLine();
+
+        while (cont) {
+            try {
+                Date dateD = sdf.parse(date);
+
+
+                if (Main.dates.contains(date)) {
+                    daynr = Main.dates.indexOf(date);
+                    cont = false;
+                } else if (dateD.getTime() > date1.getTime() && (dateD.getTime() < date2.getTime())) {
+                    Calendar d = Calendar.getInstance();
+                    d.setTime(dateD);
                     d.add(Calendar.DATE, 1);
+                    if (!Main.dates.contains(sdf.format(d.getTime()))) {
+                        d.add(Calendar.DATE, 1);
+                    }
                     daynr = Main.dates.indexOf(sdf.format(d.getTime()));
-                    cont = true;
+                    cont = false;
+                } else {
+                    System.out.println("Ugyldig dato valgt");
+
+                }
+            } catch (Exception e) {
+                System.out.println("Ugyldigt input");
+
+            }
+        }
+
+        for (int j = 0; j < 5; j++) {
+            day = Main.calender.get(daynr);
+            date = Main.dates.get(daynr);
+            dayOptions[j] = date.split("/")[2];
+            dayName = day[17];
+
+            System.out.println(dayName + ", " + date + " er følgende tider ledige: ");
+            for (int i = 1; i < 17; i++) {
+                if (day[i].equals("0")) {
+                    System.out.print(timeindex(i) + ", ");
+
+                }
+            }
+            daynr++;
+            System.out.println("\n");
+        }
+        if (ask) {
+            System.out.println("Vil du booke tid?");
+            Menu.menu(Main.janej);
+        } else Menu.op=1;
+        if (Menu.op == 1) {
+            System.out.println("Indtast dag (dd):");
+            String dayStr = Main.input.nextLine();
+            if (Arrays.asList(dayOptions).contains(dayStr)) {
+                String[] dateArr = date.split("/");
+                if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
+                    dateArr[1] = Integer.toString(Integer.parseInt(dateArr[1]) + 1);
+                }
+                dateArr[2] = dayStr;
+
+                date = String.join("/", dateArr);
+                Available.timeCheck(date);
+                System.out.println("Indtast tidspunkt (tt:mm):");
+                String timeStr = Main.input.nextLine();
+
+                if (Available.timeOptions.contains(timeStr)) {
+                    if (nr.isEmpty()) {
+                        nr = Menu.inTlf();
+                    }
+
+                    Book.book(date, timeStr, nr);
+                    System.out.println("Tiden er nu booket");
+
+                } else {
+                    System.out.println("Ugyldigt tidspunkt valgt");
                 }
             } else {
-                System.out.println("Ugyldig dato valgt");
-                cont = false;
+                System.out.println("Ugyldig dag valgt");
             }
-
-            if (cont) {
-
-
-                for (int j = 0; j < 5; j++) {
-                    day = Main.calender.get(daynr);
-                    date = Main.dates.get(daynr);
-                    dayOptions[j] = date.split("/")[2];
-                    dayName = day[17];
-
-                    System.out.println(dayName + ", " + date + " er følgende tider ledige: ");
-                    for (int i = 1; i < 17; i++) {
-                        if (day[i].equals("0")) {
-                            System.out.print(timeindex(i) + ", ");
-
-                        }
-                    }
-                    daynr++;
-                    System.out.println("\n");
-                }
-                System.out.println("Vil du booke tid?");
-                Menu.menu(Main.janej);
-                if (Menu.op == 1) {
-                    System.out.println("Indtast dag (dd):");
-                    String dayStr = Main.input.nextLine();
-                    if (Arrays.asList(dayOptions).contains(dayStr)) {
-                        String[] dateArr = dateIn.split("/");
-                        if (Integer.parseInt(dayStr) < Integer.parseInt(dateArr[2])) {
-                            dateArr[1] = Integer.toString(Integer.parseInt(dateArr[1]) + 1);
-                        }
-                        dateArr[2] = dayStr;
-
-                        dateIn = String.join("/", dateArr);
-                        Available.timeCheck(dateIn);
-                        System.out.println("Indtast tidspunkt (tt:mm):");
-                        String timeStr = Main.input.nextLine();
-
-                        if (Available.timeOptions.contains(timeStr)) {
-
-                            String teleNr = Menu.inTlf();
-
-                            Book.book(dateIn, timeStr, teleNr);
-
-                        } else {
-                            System.out.println("Ugyldigt tidspunkt valgt");
-                        }
-                    } else {
-                        System.out.println("Ugyldig dag valgt");
-                    }
-
-                }
-
-            }
-        } catch (Exception e){
-            System.out.println("Ugyldigt input");
 
         }
+
     }
 
 
@@ -146,15 +152,15 @@ public class Available {
 
         daynr=Main.dates.indexOf(date);
 
-            day =Main.calender.get(daynr);
-            dayName=day[17];
+        day =Main.calender.get(daynr);
+        dayName=day[17];
 
-            System.out.println(dayName+", "+date + " er følgende tider reserverede: ");
-            for (int i = 1; i < 17; i++) {
-                if (!day[i].equals("0")) {
-                    System.out.println(timeindex((i))+", Tlf: "+day[i]);
+        System.out.println(dayName+", "+date + " er følgende tider reserverede: ");
+        for (int i = 1; i < 17; i++) {
+            if (!day[i].equals("0")) {
+                System.out.println(timeindex((i))+", Tlf: "+day[i]);
 
-                }
+            }
 
         }
         System.out.println();

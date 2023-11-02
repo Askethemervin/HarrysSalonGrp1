@@ -42,7 +42,7 @@ public class Menu {
     }
 
     static String inTlf() {
-        Boolean cont = true;
+        boolean cont = true;
         String tlf = "";
         while (cont) {
             System.out.println("Indtast telefon nr.");

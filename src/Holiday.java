@@ -122,28 +122,28 @@ public class Holiday {
             System.out.println("Indtast nr for ferie [1,"+Main.holidays.size()+"]");
             int choice = Menu.inInt(Main.holidays.size())-1;
 
-        date1 = Main.holidays.get(choice)[0];
-        date2 = Main.holidays.get(choice)[1];
+            date1 = Main.holidays.get(choice)[0];
+            date2 = Main.holidays.get(choice)[1];
 
-        date1int = Main.dates.indexOf(date1);
-        date2int = Main.dates.indexOf(date2);
+            date1int = Main.dates.indexOf(date1);
+            date2int = Main.dates.indexOf(date2);
 
-        for (int i = date1int; i <= date2int; i++) {
+            for (int i = date1int; i <= date2int; i++) {
 
-            for (int j = 1; j <= 16; j++) {
+                for (int j = 1; j <= 16; j++) {
 
-                Main.calender.get(i)[j] = "0";
+                    Main.calender.get(i)[j] = "0";
 
+
+                }
 
             }
 
-        }
-
-        ToFile.saveList(Main.calender, "calender.txt");
+            ToFile.saveList(Main.calender, "calender.txt");
 
 
-        Main.holidays.remove(choice);
-        ToFile.saveList(Main.holidays, "holidays.txt");
+            Main.holidays.remove(choice);
+            ToFile.saveList(Main.holidays, "holidays.txt");
             System.out.println("Din ferie er nu slettet fra kalenderen");
         }
     }
