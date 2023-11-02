@@ -45,6 +45,7 @@ public class Menu {
         Boolean cont = true;
         String tlf = "";
         while (cont) {
+            System.out.println("Indtast telefon nr.");
             tlf = input.nextLine();
 
             if (tlf.length() == 8) {

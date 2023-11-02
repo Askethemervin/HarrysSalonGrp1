@@ -100,7 +100,6 @@ public class Main {
 
                 }
                 case 2 -> {
-                    System.out.println("Indtast telefon nr.;");
                     tlfnr=Menu.inTlf();
                     if (phoneNumbers.contains(tlfnr)) {
 
@@ -204,7 +203,6 @@ public class Main {
                     else System.out.println("Ugyldig dato valgt.");
                 }
                 case 4 -> {
-                    System.out.println("Indtast telefon nr.:");
                     tlfnr = Menu.inTlf();
 
 
@@ -221,8 +219,7 @@ public class Main {
 
                 }
                 case 5 -> {
-                    System.out.println("Indtast telefon nr.;");
-                    tlfnr=input.nextLine();
+                    tlfnr=Menu.inTlf();
                     if (phoneNumbers.contains(tlfnr)) {
                         if (!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
                             System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har følgende reservationer:");

@@ -121,7 +121,6 @@ public class Available {
 
                         if (Available.timeOptions.contains(timeStr)) {
 
-                            System.out.println("Telefon nr:");
                             String teleNr = Menu.inTlf();
 
                             Book.book(dateIn, timeStr, teleNr);
