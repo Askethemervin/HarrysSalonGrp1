@@ -117,6 +117,7 @@ public class Available {
             if (ask) {
                 System.out.println("Vil du booke tid?");
                 Menu.menu(Main.janej);
+                contx=false;
             } else Menu.op = 1;
             if (Menu.op == 1) {
                 cont = true;
