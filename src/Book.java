@@ -7,48 +7,78 @@ public class Book {
     static int y;
     static String debt;
 
-    static void timeSwitch(String time){
+    static int timeSwitch(String time){
         switch (time) {
-            case "10:00" -> y=1;
+            case "10:00" -> {
+                return 1;
+            }
 
-            case "10:30" -> y=2;
+            case "10:30" -> {
+                return 2;
+            }
 
-            case "11:00" -> y=3;
+            case "11:00" -> {
+                return 3;
+            }
 
-            case "11:30" -> y=4;
+            case "11:30" -> {
+                return 4;
+            }
 
-            case "12:00" -> y=5;
+            case "12:00" -> {
+                return 5;
+            }
 
-            case "12:30" -> y=6;
+            case "12:30" -> {
+                return 6;
+            }
 
-            case "13:00" -> y=7;
+            case "13:00" -> {
+                return 7;
+            }
 
-            case "13:30" -> y=8;
+            case "13:30" -> {
+                return 8;
+            }
 
-            case "14:00" -> y=9;
+            case "14:00" -> {
+                return 9;
+            }
 
-            case "14:30" -> y=10;
+            case "14:30" -> {
+                return 10;
+            }
 
-            case "15:00" -> y=11;
+            case "15:00" -> {
+                return 11;
+            }
 
-            case "15:30" -> y=12;
+            case "15:30" -> {
+                return 12;
+            }
 
-            case "16:00" -> y=13;
+            case "16:00" -> {
+                return 13;
+            }
 
-            case "16:30" -> y=14;
+            case "16:30" -> {
+                return 14;
+            }
 
-            case "17:00" -> y=15;
+            case "17:00" -> {
+                return 15;
+            }
 
-            case "17:30" -> y=16;
+            case "17:30" -> {
+                return 16;
+            }
         }
+        return 0;
     }
 
     static void book(String date, String time, String telnr) throws IOException {
 
-        timeSwitch(time);
-
-
-        Main.calender.get(Main.dates.indexOf(date))[y]=telnr;
+        Main.calender.get(Main.dates.indexOf(date))[timeSwitch(time)]=telnr;
 
         ToFile.saveList(Main.calender,"calender.txt");
 
@@ -73,7 +103,7 @@ public class Book {
 
     static void delete(String date, String time) throws IOException {
 
-        timeSwitch(time);
+        y = timeSwitch(time);
 
         String telnr = Main.calender.get(Main.dates.indexOf(date))[y];
 
@@ -95,10 +125,7 @@ public class Book {
 
     static void pay(String date, String time, String price) throws IOException {
 
-        timeSwitch(time);
-
-
-        Main.payments.get(Main.dates.indexOf(date))[y-1] = price;
+        Main.payments.get(Main.dates.indexOf(date))[timeSwitch(time)-1] = price;
 
         ToFile.saveList(Main.payments, "PaymentCalender.txt");
 
@@ -106,7 +133,7 @@ public class Book {
 
     static int isPayed(String date, String time) {
 
-        timeSwitch(time);
+        y=timeSwitch(time);
 
         if (Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1])==0){
             return 0;
@@ -122,9 +149,7 @@ public class Book {
     }
     static String payedPrice(String date, String time) {
 
-        timeSwitch(time);
-
-        return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[y - 1]));
+        return Integer.toString(Integer.parseInt(Main.payments.get(Main.dates.indexOf(date))[ timeSwitch(time) - 1]));
 
     }
 }

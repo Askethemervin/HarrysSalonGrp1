@@ -98,6 +98,7 @@ public class Main {
                             System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har følgende reservationer:");
                             int j = 1;
                             for (String[] s : Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings) {
+
                                 System.out.println(j + ": " + Arrays.toString(s));
                                 j++;
 
