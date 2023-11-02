@@ -15,8 +15,10 @@ public class Main {
     static ArrayList<String[]> holidays = new ArrayList<>();
 
     static Scanner input = new Scanner(System.in);
-    static String date;
     static String[] janej = new String[]{"Ja","Nej"};
+
+    static String date;
+
 
     
     public static void main(String[] args) throws IOException, ParseException {
@@ -81,7 +83,7 @@ public class Main {
 
 
         boolean cont = true;
-
+        String tlfnr;
 
         while (cont) {
             System.out.println();
@@ -99,7 +101,7 @@ public class Main {
                 }
                 case 2 -> {
                     System.out.println("Indtast telefon nr.;");
-                    String tlfnr=input.nextLine();
+                    tlfnr=Menu.inTlf();
                     if (phoneNumbers.contains(tlfnr)) {
 
                         if (!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
@@ -203,14 +205,14 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("Indtast telefon nr.:");
-                    String tlf = Menu.inTlf();
+                    tlfnr = Menu.inTlf();
 
 
-                    if (!phoneNumbers.contains(tlf)) {
+                    if (!phoneNumbers.contains(tlfnr)) {
                         System.out.println("Indtast navn:");
                         String name = input.nextLine();
 
-                        customers.add(new Customer(tlf, name, new ArrayList<>()));
+                        customers.add(new Customer(tlfnr, name, new ArrayList<>()));
 
                         ToFile.saveCustomer(customers);
                     }
@@ -220,7 +222,7 @@ public class Main {
                 }
                 case 5 -> {
                     System.out.println("Indtast telefon nr.;");
-                    String tlfnr=input.nextLine();
+                    tlfnr=input.nextLine();
                     if (phoneNumbers.contains(tlfnr)) {
                         if (!Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings.isEmpty()) {
                             System.out.println(Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).name + " har følgende reservationer:");
