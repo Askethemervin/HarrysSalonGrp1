@@ -1,7 +1,7 @@
 public class Payments {
     static void searchByDate(String date) {
         if (Main.dates.contains(date)) {
-            System.out.println("Kunder og reservationer for dato: " + date);
+            System.out.println("Kunder og reservationer for dato " + date+":\n");
             boolean found = false;
             int totalPrice = 0;
             int dateIndex = Main.dates.indexOf(date);
