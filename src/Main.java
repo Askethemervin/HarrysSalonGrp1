@@ -79,7 +79,7 @@ public class Main {
         }
 
         boolean cont = true;
-        boolean contx =true;
+        boolean contx;
         String tlfnr;
 
         while (cont) {
