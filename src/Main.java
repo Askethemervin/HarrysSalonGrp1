@@ -187,12 +187,12 @@ public class Main {
                             for (String[] s : Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings) {
                                 System.out.print(j + ": " + Arrays.toString(s));
                                 if (Book.isPayed(s[0], s[1]) == 1) {
-                                    System.out.println(", betalt");
+                                    System.out.println(", betalt "+Book.payedPrice(s[0], s[1])+" kr.");
 
                                 } else if ((Book.isPayed(s[0], s[1]) == 0)) {
                                     System.out.println(", ikke betalt");
                                 } else {
-                                    System.out.println(", kredit givet");
+                                    System.out.println(", indestånde kredit: " +(Integer.parseInt(Book.payedPrice(s[0], s[1]))*-1)+" kr.");
                                 }
                                 j++;
 

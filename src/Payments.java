@@ -16,7 +16,7 @@ public class Payments {
                     System.out.println("Telefon nr.: " + Main.customers.get(custIndex).tlfnr);
                     System.out.println("Tidspunkt: " + Available.timeindex(i));
                     if (Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) < 0) {
-                        System.out.println("Aftale om kredit: " + Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) * -1);
+                        System.out.println("Aftale om kredit: " + Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) * -1+"\n");
                     } else if (Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) > 0) {
                         System.out.println("Transaktion: " + Book.payedPrice(date, Available.timeindex(i)) + "\n");
                         totalPrice = totalPrice + Integer.parseInt(Book.payedPrice(date, Available.timeindex(i)));
