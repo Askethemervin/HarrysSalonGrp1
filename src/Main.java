@@ -84,7 +84,7 @@ public class Main {
 
         while (cont) {
             System.out.println();
-            String[] items = new String[]{"Se ledige tider", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Feriedage","Luk program"};
+            String[] items = new String[]{"Se ledige tider og book", "Se/Ændre kunders tider", "Se/slet tid på dato","Opret kunde", "Betal","Se betalinger på dato","Feriedage","Luk program"};
             Menu.menu(items);
 
             switch (Menu.op) {
@@ -107,13 +107,11 @@ public class Main {
                             System.out.println("Kunne du tænke dig at flytte/slette en reservation?");
                             Menu.menu(janej);
                             if (Menu.op == 1) {
-
-                                System.out.println("Indtast nummeret for tiden");
-
                                 ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
 
-                                int choice = Menu.inInt(cbookings.size());
+                                System.out.println("Indtast nummeret for tiden [1,"+cbookings.size()+"]");
 
+                                int choice = Menu.inInt(cbookings.size());
 
                                 System.out.println("Er du sikker på at du vil ændre tiden " + Arrays.toString(cbookings.get(choice - 1)) + "?");
                                 Menu.menu(janej);
@@ -204,7 +202,7 @@ public class Main {
                             Menu.menu(janej);
                             if (Menu.op == 1) {
 
-                                System.out.println("Indtast nummeret for tiden");
+                                System.out.println("Indtast nummeret for tiden [1,"+(j-1)+"]");
 
                                 ArrayList<String[]> cbookings = Main.customers.get(Main.phoneNumbers.indexOf(tlfnr)).bookings;
 

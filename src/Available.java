@@ -151,7 +151,7 @@ public class Available {
                                 Book.book(date, timeStr, nr);
                                 System.out.println("Tiden er nu booket");
                                 cont = false;
-                                contx=false;
+                                contx = false;
 
                             } else {
                                 System.out.println("Ugyldigt tidspunkt valgt");
