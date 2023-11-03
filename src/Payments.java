@@ -10,19 +10,19 @@ public class Payments {
 
             for (int i = 1; i < 17; i++) {
                 telnr = Main.calender.get(dateIndex)[i];
-                if (!telnr.equals("0") && !telnr.equals("1")) {
+                if (!telnr.equals("0") && !telnr.equals("1") && ((Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) > 0) || Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) < 0)) {
                     custIndex = Main.phoneNumbers.indexOf(telnr);
                     System.out.println("Kunde: " + Main.customers.get(custIndex).name);
                     System.out.println("Telefon nr.: " + Main.customers.get(custIndex).tlfnr);
                     System.out.println("Tidspunkt: " + Available.timeindex(i));
                     if (Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) < 0) {
                         System.out.println("Aftale om kredit: " + Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) * -1);
-                    } else {
+                    } else if (Integer.parseInt(Book.payedPrice(date, Available.timeindex(i))) > 0) {
                         System.out.println("Transaktion: " + Book.payedPrice(date, Available.timeindex(i)) + "\n");
                         totalPrice = totalPrice + Integer.parseInt(Book.payedPrice(date, Available.timeindex(i)));
 
-                        found = true;
                     }
+                    found = true;
                 }
             }
 
