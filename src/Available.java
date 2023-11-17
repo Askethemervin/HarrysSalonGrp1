@@ -12,7 +12,7 @@ public class Available {
     static String dayName;
     static String[] dayOptions = new String[5];
     static ArrayList<String> timeOptions;
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); //
     static boolean cont;
     static boolean contx;
 
